@@ -1,9 +1,52 @@
 # MapDiary
-Map Diary 地图日记？
+
+## Introduction
+
+Map Diary  --- ？
+
+
+
+## Start
+
+### npm install --- Install all packages and dependencies
+
+The terminal may flash with some warning messages regarding the middleware configuration. This is due to some minor issue in create-react-app v5.0.0 and hopefully fixed in v5.0.1, but it does not affect anything.
+
+ ### npm start --- Start the project in the live browser
+
+
+
+## Branches Management
+
+### Production Branch
+
+* **Master branch**
+
+### Development Branch
+
+* **Dev-v1.0.0**
+
+### Other Branches
+
+* **Feature Branches**
+* **Release Branches**
+* **Hotfix Branches**
+
+
+
+## Account & Password
+
+
+
+
+
+
+
+<hr>
 
 ## 时间规划
 
-- [ ] 三月初完成前端
+- [ ] 三月初完成前端                     
 - [ ] 后端、数据库
 - [ ] 移动端适配
 
@@ -66,5 +109,4 @@ Reference：
 [Leaflet -- JavaScript library for mobile-friendly interactive maps](https://github.com/Leaflet/Leaflet)
 
 [Leaflet.label -- plugin for adding labels to markers & shapes on leaflet powered maps.](https://github.com/Leaflet/Leaflet.label)
-
 
