@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
-import L from "leaflet";
+import React, { Component } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "../../../node_modules/leaflet/dist/leaflet.css";
-import './index.css'
-
-
+import "./index.css";
+// Solve the issue of broken marker image
+import "./markerFix";
 
 export default class Mapbox extends Component {
-    componentDidMount() {
-        var mymap = L.map("mapbox").setView([1.353, 103.81], 13);
-        L.tileLayer(
-          "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
-          {
-            attribution:
-              'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: "mapbox/streets-v11",
-            tileSize: 512,
-            zoomOffset: -1,
-            accessToken:
-              "pk.eyJ1IjoiMTMwNjU2MjkwMiIsImEiOiJja3pjMXNxZXIxdWV6MnBueHJleW05dWcxIn0.RqJpm-2ggMdK1lnVUPuEhw",
-          }
-        ).addTo(mymap);
-      }
-    render() {
-    return <div id='mapbox'></div>;
+
+  render() {
+    return (
+      <div id="mapbox">
+        <MapContainer className='map-container' center={[1.353, 103.81]} zoom={13}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={[1.353, 103.81]}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div>
+    );
   }
 }
