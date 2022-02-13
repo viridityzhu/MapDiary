@@ -6,6 +6,9 @@ import "./index.css";
 import "./markerFix";
 
 export default class Mapbox extends Component {
+  state = {
+    currentMarker:''
+  }
 
   render() {
     return (
