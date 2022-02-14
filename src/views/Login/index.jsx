@@ -86,7 +86,7 @@ export default class Login extends Component {
             </Form>
           </div>
         </main>
-        <footer>
+        <footer className="login-footer">
           <div className="login-footer-left">
             <a href="www.baidu.com">Documents</a>
             <a href="www.baidu.com">Privacy Polocy</a>
