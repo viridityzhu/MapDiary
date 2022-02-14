@@ -58,7 +58,7 @@ The terminal may flash with some warning messages regarding the middleware confi
 2. 左边栏显示图钉内容概览，类似博客主页那种，包括：标题、时间、摘要、封面图等。可以点击展开，让它占据页面主要部分；也可以点击全屏，跳转到**页面3:全文显示页面**
     1. 摘要：用户可以自定义摘要，如果不自定义的话，则截取正文前100字
     2. 封面图：用户可以自定义，否则默认为正文第一张图，或者没有
-3. 右边有一个【可爱】的滚动显示的东西（叫啥来着），鼠标放在上面可以滑动滚轮或者单击来切换前一个/后一个图钉📌
+3. 右边有一个【可爱】的滚动显示的东西（叫啥来着）--- 轮播图，鼠标放在上面可以滑动滚轮或者单击来切换前一个/后一个图钉📌。滑动时显示时间线
 4. 右上角是功能区，可以登陆、设置等等，分别跳转到**页面4: 登录页面**、**页面5: 设置页面**
 5. 【美好愿想】搜索框在左上角
 
@@ -93,6 +93,12 @@ The terminal may flash with some warning messages regarding the middleware confi
 功能点：
 1. 用户可以注册、登录、设置
 2. 地图可以打图钉，查看对应的文档
+   打图钉功能实现：
+   1).地图渲染已存在的图钉
+   2).点击 'create a diary',鼠标此时在地图上点击，在图钉数据尾部添加一条图钉数据,并标记为newMarker，并渲染
+   3).每次添加图钉会自动删除标记为newMarker的图钉数据
+   4).关闭页面
+
 3. 编辑和发布文档：完整的博客功能，也就是说可以组织不同格式的文本，还可以插入图片、视频之类的多媒体
 4. 查看聚合地图，不同地理坐标，其他人记录了些什么呢？（如果用户笔记权限设为公开的话）如果选择「查看他人的图钉」，则在地图上显示其他人的图钉，可以用另一种颜色标识
 5. 移动端适配问题：霖哥说有点难度
@@ -101,8 +107,12 @@ The terminal may flash with some warning messages regarding the middleware confi
 ## 技术选型
 
 Node.js + npm + react，会用到react脚手架、[Leaflet库](https://github.com/Leaflet/Leaflet)等等。
+Update:使用react-leaflet代替leaflet.
+leaflet采用命令式编程，更适合原生JS
+leaflet-react为函数式编程，能够将UI结构封装成组件，提供对DOM元素进行操作的接口
 
 再找找看有没有直接实现文本编辑器的框架或者库之类的🤔
+Update:Editor.md
 
 Reference：
 

@@ -1,6 +1,6 @@
 .logo {
     float: left;
-    margin:12px 55vw 12px 2%;
+    margin:12px auto;
     height: 40px;
     line-height: 40px;
     width: 100px;
@@ -9,8 +9,14 @@
     text-align: center;
 }
 
+.ant-menu-overflow {
+    display: flex;
+    justify-content:flex-end;
+}
+
 .avatar {
     float: right;
+    margin-left: 2vw;
     margin-right: 4vw;
     width: 50px;
     height: 50px;
