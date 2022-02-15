@@ -9,7 +9,7 @@
     text-align: center;
 }
 
-.ant-menu-overflow {
+.header-wrapper :global(.ant-menu-overflow) {
     display: flex;
     justify-content:flex-end;
 }

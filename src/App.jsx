@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import styles from "./App.module.css";
 // import Signup from "./views/Signup";
 import Login from "./views/Login";
 // import Header from "./components/Layout/Header";
@@ -12,9 +12,9 @@ import Login from "./views/Login";
 export default class App extends Component {
   render() {
     return (
-      <div className="app-wrapper">
+      <div className={styles["app-wrapper"]}>
         {/* <Header />
-        <div className="content">
+        <div className={styles.content}>
           <SideNav />
           <Mapbox />
         </div>
