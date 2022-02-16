@@ -12,7 +12,7 @@ export default class HeaderMod extends Component {
         <Header style={{ height: "100%", width: "100vw" }}>
           <div className={styles.logo}>A serious logo serious logo</div>
           <div className={styles["avatar-wrapper"]}>
-            <Avatar size={48} icon={<UserOutlined />} className="avatar" />
+            <Avatar size={48} icon={<UserOutlined />} className={styles.avatar} />
           </div>
           <div className={styles["menu-wrapper"]}>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["3"]}>
