@@ -14,28 +14,28 @@
   margin-right: 4%;
 }
 
-.login-header-wrapper .login-header-menu .ant-menu-item::after{
+.login-header-wrapper .login-header-menu :global(.ant-menu-item)::after{
     content: none;
 }
 
-.login-header-wrapper .login-header-menu .ant-menu-item:hover {
+.login-header-wrapper .login-header-menu :global(.ant-menu-item):hover {
     background-color: #ccc;
 }
-.login-header-wrapper .login-header-menu .ant-menu-item {
+.login-header-wrapper .login-header-menu :global(.ant-menu-item) {
     height: 2rem;
     margin-right: 3px;
     border-radius: .4rem;
 }
-.login-header-wrapper .login-header-menu .ant-menu-title-content {
+.login-header-wrapper .login-header-menu :global(.ant-menu-title-content) {
   display: block;
   height: 2rem;
   line-height: 2rem;
   font-size: 1rem;
 }
-.login-header-wrapper .login-header-menu .ant-menu-horizontal {
+.login-header-wrapper .login-header-menu :global(.ant-menu-horizontal) {
     border-bottom: none;
 }
-.login-header-wrapper .login-header-menu .ant-menu-item-selected {
+.login-header-wrapper .login-header-menu :global(.ant-menu-item-selected) {
     background-color: #ccc;
 }
 .login-main-wrapper {

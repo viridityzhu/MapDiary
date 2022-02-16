@@ -51,21 +51,22 @@
     overflow: hidden;
     height: 83%;
 }
-.signup-form .ant-form-item-label {
+.signup-form :global(.ant-form-item-label) {
     padding-bottom: .2rem;
 }
-.signup-form .ant-form-item-label > label {
+.signup-form :global(.ant-form-item-label) > label {
     font-size: 1rem;
     height: 1rem;
 }
-.signup-form .ant-form-item {
+.signup-form :global(.ant-form-item) {
     margin-bottom: 1rem;
 }
-.signup-form .ant-input {
+.signup-form :global(.ant-input) {
     height: 5vh;
     border-radius: 2.5vh;
 }
-.signup-form .ant-btn {
+
+.signup-form :global(.ant-btn) {
     width: 100%;
     height: 5vh;
     margin-top: 0%;

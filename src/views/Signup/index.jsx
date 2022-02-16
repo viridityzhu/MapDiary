@@ -1,6 +1,6 @@
 import React, { Component, createRef } from "react";
 import { Form, Input, message, Button } from "antd";
-import "./index.css";
+import styles from "./index.module.css";
 import imgURL from '../../img/Diary.jpeg'
 
 export default class Signup extends Component {
@@ -19,17 +19,17 @@ export default class Signup extends Component {
   };
   render() {
     return (
-      <div className="signup-wrapper">
-        <div className="signup-main-wrapper">
-          <div className="signup-focus-page">
+      <div className={styles["signup-wrapper"]}>
+        <div className={styles["signup-main-wrapper"]}>
+          <div className={styles["signup-focus-page"]}>
             <img src={imgURL} alt="gg" />
           </div>
-          <div className="signup-form-wrapper">
+          <div className={styles["signup-form-wrapper"]}>
             <h3>Sign Up</h3>
-            <div className="signup-form-main">
+            <div className={styles["signup-form-main"]}>
               <Form
                 size="small"
-                className="signup-form"
+                className={styles["signup-form"]}
                 ref={this.myForm}
                 layout="vertical"
                 onFinish={this.onFinish}
@@ -114,7 +114,7 @@ export default class Signup extends Component {
                 </Form.Item>
                 <Form.Item>
                   <Button
-                    className="signup-form-button"
+                    className={styles["signup-form-button"]}
                     type="primary"
                     htmlType="button"
                     onClick={this.onFill}
@@ -123,7 +123,7 @@ export default class Signup extends Component {
                   </Button>
                 </Form.Item>
                 <Form.Item>
-                  <div className="signup-form-signin">
+                  <div className={styles["signup-form-signin"]}>
                     Already have an account?
                     <a href="www.baidu.com">&nbsp;&nbsp;&nbsp;Sign in</a>{" "}
                   </div>
