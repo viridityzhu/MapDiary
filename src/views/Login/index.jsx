@@ -5,6 +5,9 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import styles from "./index.module.css";
 
 export default class Login extends Component {
+  onHandleChange = (e) => {
+    console.log(e);
+  }
   render() {
     const onFinish = (values) => {
       console.log("Received values of form: ", values);
@@ -66,9 +69,10 @@ export default class Login extends Component {
                 </Button>
               </Form.Item>
 
+              {/* Cannot assign a name property to the switch, use ref instead? */}
               <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Switch /><a href="www.baidu.com">&nbsp;&nbsp;Keep logged in</a> 
+                <Form.Item valuePropName="checked" noStyle>
+                  <Switch onChange={this.onHandleChange}/><a href="www.baidu.com">&nbsp;&nbsp;Keep logged in</a> 
                 </Form.Item>
 
                 <a className={styles["login-form-forgot"]} href="www.baidu.com">

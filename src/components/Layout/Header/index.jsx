@@ -9,7 +9,7 @@ export default class HeaderMod extends Component {
   render() {
     return (
       <div className={styles["header-wrapper"]}>
-        <Header style={{ height: "100%", width: "100vw" }}>
+        <Header>
           <div className={styles.logo}>A serious logo serious logo</div>
           <div className={styles["avatar-wrapper"]}>
             <Avatar size={48} icon={<UserOutlined />} className={styles.avatar} />
