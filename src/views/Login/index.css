@@ -5,15 +5,13 @@
 .login-header-wrapper {
   overflow: hidden;
   width: 100%;
-  height: 20%;
+  height: 15vh;
 }
 .login-header-wrapper .login-header-menu {
-    float: right;
-  height: 50px;
-  margin-top: 3%;
+  float: right;
+  height: 60%;
+  margin-top: 2%;
   margin-right: 4%;
-  font-size: 16px;
-  line-height: 50px;
 }
 
 .login-header-wrapper .login-header-menu .ant-menu-item::after{
@@ -24,8 +22,15 @@
     background-color: #ccc;
 }
 .login-header-wrapper .login-header-menu .ant-menu-item {
+    height: 2rem;
     margin-right: 3px;
-    border-radius: 3px;
+    border-radius: .4rem;
+}
+.login-header-wrapper .login-header-menu .ant-menu-title-content {
+  display: block;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 1rem;
 }
 .login-header-wrapper .login-header-menu .ant-menu-horizontal {
     border-bottom: none;
@@ -40,17 +45,18 @@
 
 .login-main-wrapper .login-logo-wrapper {
   width: 330px;
-  height: 85px;
-  margin: 40px auto;
+  height: 5rem;
+  margin: 2rem auto 0rem auto;
   background-color: pink;
 }
 
 .login-main-wrapper .login-form {
-  height: 400px;
+  height: 15rem;
   width: 300px;
   margin: 10px auto;
 }
 .login-main-wrapper .login-form-input {
+  height: 2rem;
   border-radius: 14px;
 }
 
@@ -70,9 +76,13 @@
   font-weight: 700;
 }
 
+.login-footer {
+  margin-top: 2rem;
+}
+
 .login-footer-left {
   float: left;
-  margin-left: 200px;
+  margin-left: 10vw;
 }
 .login-footer-left a {
   padding: 15px;
@@ -80,7 +90,7 @@
 }
 .login-footer-right {
   float: right;
-  margin-right: 200px;
+  margin-right: 10vw;
 }
 .login-footer-right p {
   color: #797979;

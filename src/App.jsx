@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import Signup from "./views/Signup";
-// import Login from "./views/Login";
+// import Signup from "./views/Signup";
+import Login from "./views/Login";
 // import Header from "./components/Layout/Header";
 // import SideNav from "./components/Layout/SideNav";
 // import Footer from "./components/Layout/Footer";
@@ -19,8 +19,8 @@ export default class App extends Component {
           <Mapbox />
         </div>
         <Footer /> */}
-        {/* <Login /> */}
-        <Signup />
+        <Login />
+        {/* <Signup /> */}
       </div>
     );
   }
