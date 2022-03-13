@@ -5,7 +5,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import styles from "./index.module.css";
 
 export default class Login extends Component {
-  onHandleChange = (e) => {
+  onHandleChange = (e) =>{
+    // e: true/false
     console.log(e);
   }
   render() {
