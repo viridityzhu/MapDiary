@@ -1,10 +1,11 @@
+import React from "react";
 import Homepage from "../views/Homepage";
 
 const priviteRoutes = [
     {
       path: "/home",
       element: <Homepage/>,
-      role: 'user',
+      role: 'users',
       backUrl:'/login'
     },
   ];

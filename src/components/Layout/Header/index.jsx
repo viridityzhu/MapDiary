@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Avatar } from "antd";
+import { Layout, Switch, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import styles from "./index.module.css";
 
@@ -10,17 +10,14 @@ export default class HeaderMod extends Component {
     return (
       <div className={styles["header-wrapper"]}>
         <Header>
-          <div className={styles.logo}>A serious logo serious logo</div>
+          <div className={styles.logo}>A serious logo</div>
           <div className={styles["avatar-wrapper"]}>
             <Avatar size={48} icon={<UserOutlined />} className={styles.avatar} />
+            &nbsp;&nbsp;&nbsp;Jay.Liu
           </div>
-          <div className={styles["menu-wrapper"]}>
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["3"]}>
-              <Menu.Item key="1">Write a Diary</Menu.Item>
-              <Menu.Item key="2">My Diaries</Menu.Item>
-              <Menu.Item key="3">Map</Menu.Item>
-              <Menu.Item key="4">Visit others</Menu.Item>
-            </Menu>
+          <div className={styles["show-others"]}>
+            <Switch />
+            &nbsp;Show Others' Pins
           </div>
         </Header>
       </div>
