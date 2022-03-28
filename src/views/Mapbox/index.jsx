@@ -1,17 +1,49 @@
 import React, { Component } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import LocationMarker from "../MapComponents/LocationMarker";
 import "../../../node_modules/leaflet/dist/leaflet.css";
 import './mapbox.css'
 import styles from "./index.module.css";
 // Solve the issue of broken marker image
 import "./markerFix";
 
+
+const dataArr = [
+  {
+    id:0,
+    position:[1.353, 103.81]
+  },
+  {
+    id:1,
+    position:[1.362, 103.83]
+  },
+  {
+    id:2,
+    position:[1.373, 103.76]
+  },
+  {
+    id:3,
+    position:[1.333,103.75]
+  },
+
+]
 export default class Mapbox extends Component {
   state = {
     currentMarker:''
   }
-
+  renderMarker = (data) => {
+    const {position,id} = data
+    return <Marker position={position} key = {id}>
+      <Popup>Current position is ({position[0]},{position[1]})</Popup>
+    </Marker>
+  }
+  getMarkers = (dataArr) => {
+    return dataArr.map((item,idx) => {
+      return this.renderMarker(item)
+    })
+  }
   render() {
+    const markers = this.getMarkers(dataArr)
     return (
       <div id="mapbox">
         <MapContainer className={styles['map-container']} center={[1.353, 103.81]} zoom={13}>
@@ -19,11 +51,13 @@ export default class Mapbox extends Component {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[1.353, 103.81]}>
+          {/* <Marker position={[1.353, 103.81]}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
-          </Marker>
+          </Marker> */}
+          {markers}
+          <LocationMarker/>
         </MapContainer>
       </div>
     );
