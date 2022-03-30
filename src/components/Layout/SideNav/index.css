@@ -1,0 +1,8 @@
+.side-wrapper-fold {
+    width: 29vw;
+    transition: 1200ms;
+  }
+.side-wrapper-open {
+    width: 50vw;
+    transition: 1200ms;
+  }

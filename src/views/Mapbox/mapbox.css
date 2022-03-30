@@ -1,5 +1,6 @@
 #mapbox {
+    position: absolute;
     float: left;
     height: 100%;
-    width: 72vw;
+    width: 100vw;
     }
