@@ -19,6 +19,7 @@
 }
 
 .avatar-wrapper {
+  position: relative;
   float: right;
   margin-left: 2vw;
   margin-right: 4vw;
@@ -30,4 +31,26 @@
 
 .avatar:hover {
   cursor: pointer;
+}
+.settings {
+  position: absolute;
+  width: 100px;
+  height: 80px;
+  background-color: #d8dee9;
+  bottom: -80px;
+  z-index: 10000;
+}
+.btn1,
+.btn2 {
+  width: 100px;
+  height: 40px;
+  position: absolute;
+  border-top: 1px solid white;
+  background-color: #d8dee9;
+}
+.btn1 {
+  top: 0px;
+}
+.btn2 {
+  top: 40px;
 }
