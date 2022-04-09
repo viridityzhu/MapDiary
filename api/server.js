@@ -1,42 +1,27 @@
-const fs = require('fs');
+require('dotenv').config();
 const express = require('express');
-const { ApolloServer, UserInputError } = require('apollo-server-express');
-const { GraphQLScalarType } = require('graphql');
-const { Kind } = require('graphql/language');
-const { MongoClient } = require('mongodb');
+// const cookieParser = require('cookie-parser');
 
-const url = 'mongodb://localhost/ticketsys';
-
-let db;
-
-async function connectToDb() {
-    const client = new MongoClient(url, { useNewUrlParser: true });
-    await client.connect();
-    console.log('Connected to MongoDB at', url);
-    db = client.db();
-  }
-
-  const server = new ApolloServer({
-    typeDefs: fs.readFileSync('./server/schema.graphql', 'utf-8'),
-    resolvers,
-    formatError: error => {
-      console.log(error);
-      return error;
-    },
-  });
+const { connectToDb } = require('./db.js');
+const { installHandler } = require('./api_handler.js');
+const auth = require('./auth.js');
 
 const app = express();
 
-app.use(express.static('public'));
-server.applyMiddleware({ app, path: '/graphql' });
+// app.use(cookieParser());
+app.use('/auth', auth.routes);
 
-(async function () {
+installHandler(app);
+
+const port = process.env.API_SERVER_PORT || 3000;
+
+(async function start() {
   try {
     await connectToDb();
-    app.listen(3000, function () {
-      console.log('App started on port 3000');
+    app.listen(port, () => {
+      console.log(`API server started on port ${port}`);
     });
   } catch (err) {
     console.log('ERROR:', err);
   }
-})();
+}());

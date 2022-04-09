@@ -56,6 +56,13 @@ screen mongod
 <C-a> d
 ```
 
+Initialize
+
+```sh
+cd api
+mongo mapdiary scripts/init.mongo.js
+```
+
 5. Compile
 
 ```sh

@@ -1,0 +1,40 @@
+
+type Marker {
+  id: Int!
+  user_id: Int!
+  created_time: GraphQLDate!
+  title: String!
+  content: String!
+  position: [Int!, Int!]!
+  is_public: Boolean
+}
+
+input Newmarker{
+  id: Int!
+  user_id: Int!
+  created_time: GraphQLDate!
+  title: String
+  content: String
+  position: [Float!, Float!]!
+  is_public: Boolean
+}
+
+type User{
+  user_id: Int!
+  user_name: String
+  description: String
+}
+
+
+##### Top level declarations
+
+type Query {
+  marker: Marker!
+  readTraveler: [Traveler!]!
+}
+
+type Mutation {
+  addTraveler(Traveler: TravelerInput!): Message
+  addBlacklist(Traveler: TravelerInput!): Message
+  deleteTraveler(serialNo: Int!): Message
+}
