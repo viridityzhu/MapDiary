@@ -2,7 +2,9 @@
 
 ## How to build & run in Docker
 
-1. install node v14
+1. Installation
+
+Install Node v14
 
 ```sh
 nvm install 14
@@ -10,7 +12,25 @@ npm install -g npm@6
 nvm use 14
 ```
 
-2. Clone this repo
+Install MongoDB server
+
+```sh
+curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add # add mongodb to the official repo
+apt install gnupg # may be needed
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+apt update # to find mongo-db
+apt install mongodb-org
+```
+
+```sh
+mkdir -p /data/db
+```
+
+```sh
+npm install mongodb@3
+```
+
+2. Clone MapDiary repo
 
 ```sh
 git clone https://github.com/viridityzhu/MapDiary.git
@@ -20,21 +40,42 @@ cd MapDiary
 3. Install all packages and dependencies
 
 ```sh
+cd ui
+npm install
+cd ../api
 npm install
 ```
 > The terminal may flash with some warning messages regarding the middleware configuration. This is due to some minor issue in create-react-app v5.0.0 and hopefully fixed in v5.0.1, but it does not affect anything.
 
 4. Initialize MongoDB (TBC)
 
+Start Mongo server:
+
+```sh
+screen mongod
+<C-a> d
+```
+
 5. Compile
 
 ```sh
+cd ../ui
 npm run build
 ```
 
 6. Start the project in the live browser
 
+Start API server (at port 3000)
+
 ```sh
+cd ../api
+npm run start
+```
+
+Start UI server (at port 8000)
+
+```sh
+cd ../ui
 npm run start
 ```
 
