@@ -1,20 +1,48 @@
 # MapDiary
 
+## How to build & run in Docker
+
+1. install node v14
+
+```sh
+nvm install 14
+npm install -g npm@6
+nvm use 14
+```
+
+2. Clone this repo
+
+```sh
+git clone https://github.com/viridityzhu/MapDiary.git
+cd MapDiary
+```
+
+3. Install all packages and dependencies
+
+```sh
+npm install
+```
+> The terminal may flash with some warning messages regarding the middleware configuration. This is due to some minor issue in create-react-app v5.0.0 and hopefully fixed in v5.0.1, but it does not affect anything.
+
+4. Initialize MongoDB (TBC)
+
+5. Compile
+
+```sh
+npm run build
+```
+
+6. Start the project in the live browser
+
+```sh
+npm run start
+```
+
 ## Introduction
 
-Map Diary  --- ？
+Map Diary --- Diary your Map, Record your Life!
 
-
-
-## Start
-
-### npm install --- Install all packages and dependencies
-
-The terminal may flash with some warning messages regarding the middleware configuration. This is due to some minor issue in create-react-app v5.0.0 and hopefully fixed in v5.0.1, but it does not affect anything.
-
- ### npm start --- Start the project in the live browser
-
-
+A light-weight web/mobile app to write diaries, record the best moments, and use a personal map to track where they happens!
 
 ## Branches Management
 
@@ -43,6 +71,38 @@ The terminal may flash with some warning messages regarding the middleware confi
 
 
 <hr>
+
+### List of Features
+
+| Function                      | Description                                                  | Fullfil Priority |
+| ----------------------------- | ------------------------------------------------------------ | ---------------- |
+| Login/Logout                  | Basic function, login and logout                             | High             |
+| Map and Marker                | A map on which users can pin markers and view corresponding documents. Specifically: 1. Existing markers can be rendered on the map. 2. When users click on "Create a diary" button, and then choose a place on the map by clicking, a temporary marker data will be appended into the database, with a "newMarker" attribute as true, and be rendered on the map. 3. Only the newest marker's "newMarker" attribute as true. 4. When the user clicks on a new place, the current "newMarker" mark will be deleted; when the user clicks "Save" button, the current "newMarker" mark will be added in the database. 5. The Map page can be closed. | High             |
+| Edit and Publish Documents    | This will provide a compete editor similar as blog apps, which allows users to organize texts with different formats, and also insert multimedias, such as pictures and videos. | High             |
+| View Public Map               | 1. Allow users to set their personal map or documents as "Public". 2. Provide a "Public Map" page, on which users can view others' maps. 3. On the "Public Map" page, the pins are set as different colors, to dinstinguish different users' pins. 4. On the "Public Map", only proper number of pins are visible, which will provide good visual effects. | High             |
+| View Others' Personal Map     | Users can also view others' personal map if they provide the specific user ID. | Medium           |
+| Search Documents or Locations | Provide search function that allows users to 1. search their own or others' documents with keywords; 2. search places and show documents pinned at there. | Relatively Low   |
+| Mobile App                    | Develop a mobile version of this product.                    | Low              |
+| Customized Document Template  | Allow users to create or even share their own customized document templates. | Low              |
+| Color Themes                  | Provide several color themes of the website.                 | Low              |
+
+### Project Schedule
+
+| Task | Complete Time | Assigned |
+| -------- | ------------- | -------- |
+| Prototype UI Design | Already | Zhang Lin and Zhu Jiayin |
+| Front-end Architechture | 15th Mar | Zhang Lin and Zhu Jiayin |
+| Back-end Architecture Design | 20th Mar | Zhang Lin and Zhu Jiayin |
+| Function: Login/Logout        | 25th Mar                 | Zhang Lin     |
+| Function: Map and Marker      | 25th Mar | Zhu Jiayin |
+| Function: Edit and Publish Documents | 1st Apr | Zhu Jiayin |
+| Function: View Public Map     | 1st Apr | Zhang Lin |
+| Function: View Others' Personal Map | 6th Apr | Zhu Jiayin |
+| Function: Search Documents or Locations | 6th Apr | Zhang Lin |
+| Adjust Final Styles of the Website | 12th Apr | Zhang Lin and Zhu Jiayin |
+| Mobile App                    | 18th Apr         | Zhang Lin and Zhu Jiayin |
+| Function: Customized Document Template | 23rd Apr | Zhang Lin     |
+| Function: Color Themes        | 23rd Apr         | Zhu Jiayin    |
 
 ## 时间规划
 
