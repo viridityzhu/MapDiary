@@ -1,26 +1,17 @@
 import React, { Component } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
-import publicRoutes from "./routes/publicRoutes";
-import priviteRoutes from "./routes/priviteRoutes";
+// import { Routes } from "react-router-dom";
 import styles from "./App.module.css";
-
+import store from './browser/store';
+import Page from './browser/Page.jsx';
 // import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-
+store.initialData = window.__INITIAL_DATA__;
+store.userData = window.__USER_DATA__;
 export default class App extends Component {
+
   render() {
     return (
       <div className={styles["app-wrapper"]}>
-        <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
-          {priviteRoutes.map(({ path, element, role, backUrl }) => {
-            return role === 'users'
-            ? <Route key={path} path={path} element={element} />
-            : <Route key={path} path={path} element={<Navigate to={backUrl} />} />
-          })}
-          {publicRoutes.map(({ path, element }) => {
-            return <Route key={path} path={path} element={element} />;
-          })}
-        </Routes>
+          <Page />
       </div>
     );
   }
