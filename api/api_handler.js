@@ -11,11 +11,11 @@ const resolvers = {
     user: auth.resolveUser,
     markerList: marker.list,
     marker: marker.get,
-    markerCounts: marker.counts,
+    // markerCounts: marker.counts,
   },
   Mutation: {
     markerAdd: marker.add,
-    markerUpdate: marker.update,
+    // markerUpdate: marker.update,
     markerDelete: marker.delete,
     markerRestore: marker.restore,
   },

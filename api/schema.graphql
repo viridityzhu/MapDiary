@@ -1,3 +1,4 @@
+scalar GraphQLDate
 
 type Marker {
   id: Int!
@@ -5,7 +6,7 @@ type Marker {
   created_time: GraphQLDate!
   title: String!
   content: String!
-  position: [Int!, Int!]!
+  position: [Float!]!
   is_public: Boolean
 }
 
@@ -15,7 +16,7 @@ input Newmarker{
   created_time: GraphQLDate!
   title: String
   content: String
-  position: [Float!, Float!]!
+  position: [Float!]!
   is_public: Boolean
 }
 
@@ -29,12 +30,15 @@ type User{
 ##### Top level declarations
 
 type Query {
+  user: User!
   marker: Marker!
-  readTraveler: [Traveler!]!
+  markerList: [Marker]
+
 }
 
 type Mutation {
-  addTraveler(Traveler: TravelerInput!): Message
-  addBlacklist(Traveler: TravelerInput!): Message
-  deleteTraveler(serialNo: Int!): Message
+  markerAdd(marker: Newmarker!): String
+  ###markerUpdate(id: Int!, changes: markerUpdateInputs!): marker!
+  markerDelete(id: Int!): Boolean!
+  markerRestore(id: Int!): Boolean!
 }
