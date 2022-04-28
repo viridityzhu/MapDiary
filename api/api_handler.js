@@ -14,6 +14,7 @@ const resolvers = {
     // markerCounts: marker.counts,
   },
   Mutation: {
+    login: auth.login,
     markerAdd: marker.add,
     // markerUpdate: marker.update,
     markerDelete: marker.delete,

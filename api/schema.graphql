@@ -23,7 +23,8 @@ input Newmarker{
 type User{
   signedIn: Boolean!
   user_id: Int
-  user_name: String
+  username: String
+  email: String
   description: String
 }
 
@@ -42,4 +43,5 @@ type Mutation {
   ###markerUpdate(id: Int!, changes: markerUpdateInputs!): marker!
   markerDelete(id: Int!): Boolean!
   markerRestore(id: Int!): Boolean!
+  login(username: String!, pwd: String!): User
 }

@@ -12,7 +12,7 @@ import store from './store.js';
 export default class Page extends React.Component {
   static async fetchData(cookie) {
     const query = `query { user {
-      signedIn user_id user_name
+      signedIn user_id 
     }}`;
     const data = await graphQLFetch(query, null, null, cookie);
     return data; // data = {user: [signedIn, user_id, user_name]}

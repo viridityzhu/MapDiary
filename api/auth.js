@@ -4,6 +4,7 @@ const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
 const { AuthenticationError } = require('apollo-server-express');
 const cors = require('cors');
+const { getDb, getNextSequence } = require('./db.js');
 
 let { JWT_SECRET } = process.env;
 
@@ -21,6 +22,23 @@ routes.use(bodyParser.json());
 
 const origin = process.env.UI_SERVER_ORIGIN || 'http://localhost:8000';
 routes.use(cors({ origin, credentials: true }));
+
+async function login(_, { username, pwd }) {
+  const db = getDb();
+  const existingUser = await db.collection('users').findOne({ username:username });
+  if(!existingUser) {
+    return {signedIn: false};
+  }else {
+    if(pwd === existingUser.pwd) {
+      existingUser.signedIn = true;
+      return existingUser;
+    } else {
+      existingUser.signedIn = false;
+      return existingUser;
+    }
+  }
+}
+
 
 function getUser(req) {
   // console.log(req);
@@ -92,5 +110,5 @@ function resolveUser(_, args, { user }) {
 }
 
 module.exports = {
-  routes, getUser, mustBeSignedIn, resolveUser,
+  routes, login, getUser, mustBeSignedIn, resolveUser,
 };

@@ -125,7 +125,7 @@ export default class Signup extends Component {
                 <Form.Item>
                   <div className={styles["signup-form-signin"]}>
                     Already have an account?
-                    <a href="www.baidu.com">&nbsp;&nbsp;&nbsp;Sign in</a>{" "}
+                    <a href="/login">&nbsp;&nbsp;&nbsp;Sign in</a>{" "}
                   </div>
                 </Form.Item>
               </Form>

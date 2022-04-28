@@ -3,15 +3,39 @@ import { Form, Input, Button, Switch, Menu } from "antd";
 import { Header } from "antd/lib/layout/layout";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import styles from "./index.module.css";
+import graphQLFetch from '../../browser/graphQLFetch';
 
 export default class Login extends Component {
   onHandleChange = (e) =>{
     // e: true/false
     console.log(e);
   }
+  async login(e) { // {username: 'xxx', password: 'fff'}
+    const query = `mutation login($username: String!, $pwd: String!) {
+      login(username: $username, pwd: $pwd) {
+        signedIn username
+      }
+    }`;
+    const { showError } = this.props;
+    const data = await graphQLFetch(query, { username:e.username,pwd:e.password }, showError);
+    console.log(data);
+    if(data.login.signedIn) {
+      console.log("login success!");
+      //todo....
+    }
+    else if(!data.login.username) {
+      alert("Did you forget to signup before login?");
+    }
+    else {
+      alert("Incorrect password. Try again :)");
+    }
+    // return data;
+  }
   render() {
     const onFinish = (values) => {
       console.log("Received values of form: ", values);
+      this.login(values);
+
     };
     return (
       <div className={styles["login-wrapper"]}>
@@ -81,7 +105,7 @@ export default class Login extends Component {
                 </a>
               </Form.Item>
               <Form.Item>
-                <a className={styles["login-form-signup"]} href="www.baidu.com">
+                <a className={styles["login-form-signup"]} href="/signup">
                   CREATE AN ACCOUNT
                 </a>
                 <a className={styles["login-form-help"]} href="www.baidu.com">
