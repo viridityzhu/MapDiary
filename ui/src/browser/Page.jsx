@@ -54,11 +54,18 @@ export default class Page extends React.Component {
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           
-          {privateRoutes.map(
+          {/* {privateRoutes.map(
             (route) => <AuthRoute key={route.path} {...route}/>
+          )} */}
+          {privateRoutes.map( // path, element, role, backUrl
+            (route) => <Route key={route.path} path={route.path} element={<AuthRoute key={route.path} {...route}/>}>
+                          <Route path={route.path}/>
+                        </Route>
           )}
+          
           {publicRoutes.map(
-            (route) => <AuthRoute key={route.path} {...route}/>
+          ({path, component, ...routes}) => 
+            <Route key={path} path={path} component={component} {...routes}/>
           )}
         </Routes>
       </UserContext.Provider>
