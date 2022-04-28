@@ -38,7 +38,17 @@ async function login(_, { username, pwd }) {
     }
   }
 }
-
+async function signup(_, { username, email, pwd }) {
+  const db = getDb();
+  const existingUser = await db.collection('users').findOne({ username:username });
+  if(!existingUser) {
+    db.collection('users').insertOne({ username:username, email:email, pwd:pwd });
+    return {signedIn:true, username:username, email:email, pwd:pwd};
+  }else {
+    
+      return {signedIn: false};
+  }
+}
 
 function getUser(req) {
   // console.log(req);
@@ -110,5 +120,5 @@ function resolveUser(_, args, { user }) {
 }
 
 module.exports = {
-  routes, login, getUser, mustBeSignedIn, resolveUser,
+  routes, login, signup, getUser, mustBeSignedIn, resolveUser,
 };

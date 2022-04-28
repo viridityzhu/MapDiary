@@ -1,7 +1,8 @@
 import React, { Component, createRef } from "react";
 import { Form, Input, message, Button } from "antd";
 import styles from "./index.module.css";
-import imgURL from '../../img/Diary.jpeg'
+import imgURL from '../../img/Diary.jpeg';
+import graphQLFetch from '../../browser/graphQLFetch';
 
 export default class Signup extends Component {
   myForm = createRef();
@@ -11,11 +12,46 @@ export default class Signup extends Component {
   onFinishFailed = () => {
     message.error("Submit failed!");
   };
-
+  async signup(username, email, password) {
+    const query = `mutation signup($username: String!, $email: String!, $pwd: String!) {
+      signup(username: $username, email: $email, pwd: $pwd) {
+        signedIn username
+      }
+    }`;
+    // const { showError } = this.props;
+    const data = await graphQLFetch(query, { username:username,email:email,pwd:password }, null);
+    console.log(data);
+    if(data.signup.signedIn) { // login success
+      message.success("Signup success!");
+      // const user = useContext(UserContext);
+      this.props.onUserChange({signedIn:true, username:data.signup.username});
+      // user.setStore({signedIn:true, username:data.login.username});
+      //todo....
+      // store.userData.user = data.login; // i suppose {signedIn: true, username: xxxx}
+      // const user = UserContext; 
+      // user.signedIn = true;
+      // user.username = data.login.username; 
+      // history.push(`/home`, { user: data.login });
+    }
+    else { // username is in the db, but password incorrect.
+      message.error("Username already used. Try another one :)");
+    }
+  }
   onFill = () => {
-    this.myForm.setFieldsValue({
-      url: "https://taobao.com/",
-    });
+    const username =this.myForm.current.getFieldValue('username') ;
+    const email =this.myForm.current.getFieldValue('email') ;
+    const password =this.myForm.current.getFieldValue('password') ;
+    const re_password =this.myForm.current.getFieldValue('re-password') ;
+    if (password !== re_password) {
+      message.error("Password and Re-password are different. Please try again."); 
+    } 
+    else {
+      this.signup(username, email, password);
+    }
+    // console.log(this.myForm.current.getFieldValue('password'));
+    // this.myForm.setFieldsValue({
+    //   url: "https://taobao.com/",
+    // });
   };
   render() {
     return (
@@ -43,10 +79,10 @@ export default class Signup extends Component {
                     {
                       required: true,
                     },
-                    {
-                      type: "username",
-                      warningOnly: true,
-                    },
+                    // {
+                    //   type: "username",
+                    //   warningOnly: true,
+                    // },
                     {
                       type: "string",
                       min: 6,
@@ -81,10 +117,10 @@ export default class Signup extends Component {
                     {
                       required: true,
                     },
-                    {
-                      type: "password",
-                      warningOnly: true,
-                    },
+                    // {
+                    //   type: "password",
+                    //   warningOnly: true,
+                    // },
                     {
                       type: "string",
                       min: 6,
@@ -100,10 +136,10 @@ export default class Signup extends Component {
                     {
                       required: true,
                     },
-                    {
-                      type: "re-password",
-                      warningOnly: true,
-                    },
+                    // {
+                    //   type: "re-password",
+                    //   warningOnly: true,
+                    // },
                     {
                       type: "string",
                       min: 6,

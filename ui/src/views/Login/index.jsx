@@ -20,7 +20,7 @@ export default class Login extends Component {
     const { showError } = this.props;
     const data = await graphQLFetch(query, { username:e.username,pwd:e.password }, showError);
     console.log(data);
-    if(data.login.signedIn) {
+    if(data.login.signedIn) { // login success
       message.success("Login success!");
       // const user = useContext(UserContext);
       this.props.onUserChange({signedIn:true, username:data.login.username});
@@ -32,10 +32,10 @@ export default class Login extends Component {
       // user.username = data.login.username; 
       // history.push(`/home`, { user: data.login });
     }
-    else if(!data.login.username) {
+    else if(!data.login.username) { // the username is not in the db
       message.error("Did you forget to signup before login?");
     }
-    else {
+    else { // username is in the db, but password incorrect.
       message.error("Incorrect password. Try again :)");
     }
     // return data;

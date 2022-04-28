@@ -44,4 +44,5 @@ type Mutation {
   markerDelete(id: Int!): Boolean!
   markerRestore(id: Int!): Boolean!
   login(username: String!, pwd: String!): User
+  signup(username: String!, email: String!, pwd: String!): User
 }

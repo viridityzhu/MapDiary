@@ -38,13 +38,14 @@ export default class Page extends React.Component {
   }
 
   onUserChange(user) {
+    console.log("page onuserchange called.");
     this.setState({ user });
   }
 
   render() {
     const { user } = this.state;
     if (user == null) {
-      alert('no user.');
+      // alert('no user.');
       console.log('no user..');
      return null;
     }
