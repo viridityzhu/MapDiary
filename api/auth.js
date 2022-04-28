@@ -23,8 +23,12 @@ const origin = process.env.UI_SERVER_ORIGIN || 'http://localhost:8000';
 routes.use(cors({ origin, credentials: true }));
 
 function getUser(req) {
+  // console.log(req);
+
   const token = req.cookies.jwt;
   if (!token) return { signedIn: false };
+
+  
 
   try {
     const credentials = jwt.verify(token, JWT_SECRET);

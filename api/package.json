@@ -15,6 +15,9 @@
     "graphql": "^0.13.2",
     "mongodb": "^3.1.10",
     "nodemon": "^1.18.9",
-    "dotenv": "^6.2.0"
+    "dotenv": "^6.2.0",
+    "cookie-parser": "^1.4.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5"
   }
 }

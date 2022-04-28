@@ -28,6 +28,7 @@ graphQLFetch(query, variables = {}, showError = null, cookie = null) {
     const body = await response.text();
     const result = JSON.parse(body, jsonDateReviver);
 
+    // showError = console.log; // for test....
     if (result.errors) {
       const error = result.errors[0];
       if (error.extensions.code === 'BAD_USER_INPUT') {
