@@ -1,9 +1,10 @@
-import React, { Component } from "react";
-import { Form, Input, Button, Switch, Menu } from "antd";
+import React, { Component, useContext } from "react";
+import { Form, Input, Button, Switch, Menu, message } from "antd";
 import { Header } from "antd/lib/layout/layout";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import styles from "./index.module.css";
 import graphQLFetch from '../../browser/graphQLFetch';
+import UserContext from "../../browser/UserContext";
 
 export default class Login extends Component {
   onHandleChange = (e) =>{
@@ -20,14 +21,22 @@ export default class Login extends Component {
     const data = await graphQLFetch(query, { username:e.username,pwd:e.password }, showError);
     console.log(data);
     if(data.login.signedIn) {
-      console.log("login success!");
+      message.success("Login success!");
+      // const user = useContext(UserContext);
+      this.props.onUserChange({signedIn:true, username:data.login.username});
+      // user.setStore({signedIn:true, username:data.login.username});
       //todo....
+      // store.userData.user = data.login; // i suppose {signedIn: true, username: xxxx}
+      // const user = UserContext; 
+      // user.signedIn = true;
+      // user.username = data.login.username; 
+      // history.push(`/home`, { user: data.login });
     }
     else if(!data.login.username) {
-      alert("Did you forget to signup before login?");
+      message.error("Did you forget to signup before login?");
     }
     else {
-      alert("Incorrect password. Try again :)");
+      message.error("Incorrect password. Try again :)");
     }
     // return data;
   }

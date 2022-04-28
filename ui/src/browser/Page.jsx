@@ -6,13 +6,14 @@ import AuthRoute from '../routes/authRoute'
 import UserContext from './UserContext.js';
 import graphQLFetch from './graphQLFetch.js';
 import store from './store.js';
-
+import Login from "../views/Login";
+import Signup from "../views/Signup";
 
 
 export default class Page extends React.Component {
   static async fetchData(cookie) {
     const query = `query { user {
-      signedIn user_id 
+      signedIn username 
     }}`;
     const data = await graphQLFetch(query, null, null, cookie);
     return data; // data = {user: [signedIn, user_id, user_name]}
@@ -58,15 +59,19 @@ export default class Page extends React.Component {
             (route) => <AuthRoute key={route.path} {...route}/>
           )} */}
           {privateRoutes.map( // path, element, role, backUrl
-            (route) => <Route key={route.path} path={route.path} element={<AuthRoute key={route.path} {...route}/>}>
+            (route) => <Route key={route.path} path={route.path} element={<AuthRoute key={route.path} {...route} onUserChange={this.onUserChange}/>}>
                           <Route path={route.path}/>
                         </Route>
           )}
           
-          {publicRoutes.map(
-          ({path, component, ...routes}) => 
-            <Route key={path} path={path} component={component} {...routes}/>
-          )}
+          {/* {publicRoutes.map(
+          ({path, element, ...routes}) => {
+            element.onUserChange=this.onUserChange;
+              return <Route key={path} path={path} component={element} {...routes}/>
+          }           )}*/}
+          <Route key="/login" path='/login' element={<Login onUserChange={this.onUserChange} />}/>
+          <Route key="/signup" path='/signup' element={<Signup onUserChange={this.onUserChange} />}/> 
+
         </Routes>
       </UserContext.Provider>
       

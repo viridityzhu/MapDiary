@@ -1,8 +1,10 @@
-import React from 'react';
+import React,{ useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import UserContext from '../browser/UserContext';
 function AuthRoute(props) {
-    const user = UserContext; 
+    const user = useContext(UserContext);
+    console.log("user signedIn:");
+    console.log(user.signedIn);
     // user = {signedIn:False/True, user_id:xxx, user_name:xxx}
     const { // path, element, role, backUrl
         role: routeRole,
