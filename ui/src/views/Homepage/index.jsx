@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styles from './index.module.less'
 import Header from "../../components/Layout/Header";
 import SideNav from "../../components/Layout/SideNav";
+import SideContent from "../SideContent"
 import Footer from "../../components/Layout/Footer";
 import Mapbox from '../Mapbox'
 import { message } from 'antd';
@@ -13,14 +14,21 @@ class Homepage extends Component {
     super(props);
     this.state = {
       showSideNav: false,
+      showMarkerContent: false,
       currentMarker:'',
-      text:''
+      text:'',
+      marker:null,
+      addedMarker:null
     };
     this.showSideNav = this.showSideNav.bind(this);
+    this.showMarkerContent = this.showMarkerContent.bind(this);
     this.changeText = this.changeText.bind(this);
     this.setCurrentMarker = this.setCurrentMarker.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onClear = this.onClear.bind(this);
+  }
+  showMarkerContent(marker) {
+    this.setState({showMarkerContent:true, marker:marker, showSideNav:false});
   }
   changeText(text){
     this.setState({text:text});
@@ -47,12 +55,15 @@ class Homepage extends Component {
       const query = `mutation markerAdd( $marker: Newmarker!) {
         markerAdd(
           marker: $marker
-        ) 
+        ) {id username created_time
+          content position is_public}
       }`;
       const data = await graphQLFetch(query, { marker }, null);
       if (data) {
-        console.log(data);
+        console.log("submitted pin", data.markerAdd);
         message.success('Submit new pin!');
+        // window.location.reload();
+        this.setState({showMarkerContent:true, marker:data.markerAdd, showSideNav:false, currentMarker:'', addedMarker:data.markerAdd,});
       }
     }
 
@@ -61,15 +72,11 @@ class Homepage extends Component {
     this.setState({text:''});
   }
   showSideNav(yesorno) {
-    this.setState({ showSideNav: yesorno });
-    console.log("home showSideNav: ");
-    console.log(yesorno);
+    this.setState({ showSideNav: yesorno, showMarkerContent:!yesorno });
   }
 
   setCurrentMarker(pos) {
     this.setState({currentMarker:pos});
-    console.log("home currentMarker: ");
-    console.log(pos);
   }
   render() {
     return (
@@ -77,8 +84,9 @@ class Homepage extends Component {
           <Header />
         <div className={styles.content}>
           <div>{this.state.showSideNav ? <SideNav changeText={this.changeText} onClear={this.onClear} onSubmit={this.onSubmit}/> : <div></div>}</div>
+          <div>{this.state.showMarkerContent ? <SideContent marker={this.state.marker}/> : <div></div>}</div>
           
-          <Mapbox text={this.state.text} username={this.props.params.user} showSideNav={this.showSideNav} setCurrentMarker={this.setCurrentMarker}/>
+          <Mapbox text={this.state.text} addedMarker={this.state.addedMarker} currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav} setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent} />
         </div>
         <Footer />
       </div>

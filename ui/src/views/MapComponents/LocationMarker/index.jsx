@@ -33,6 +33,7 @@ export default function LocationMarker(props) {
         // },[]);
     },
   })
+  
   const showEditArea = () => {
     if (state.popupText==="Create a diary"){
       props.showSideNav(true);
@@ -46,6 +47,7 @@ export default function LocationMarker(props) {
       setState((prevState)=>{
         const newState = prevState;
         newState.popupText = "Create a diary";
+        newState.position = null;
         return newState;
       })
     }

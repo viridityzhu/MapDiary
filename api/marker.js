@@ -60,9 +60,9 @@ async function add(_, { marker }) {
   newmarker.id = await getNextSequence('markers');
 
   const result = await db.collection('markers').insertOne(newmarker);
-  // const savedmarker = await db.collection('markers')
-  //   .findOne({ _id: result.insertedId });
-  return "Success.";
+  const savedmarker = await db.collection('markers')
+    .findOne({ _id: result.insertedId });
+  return savedmarker;
 }
 
 async function update(_, { id, changes }) {

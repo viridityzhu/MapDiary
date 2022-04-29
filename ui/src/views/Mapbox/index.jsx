@@ -12,7 +12,7 @@ export default class Mapbox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentMarker:'',
+      currentMarker:this.props.currentMarker,
       showOthersPins: false,
       markers:null
     };
@@ -21,7 +21,7 @@ export default class Mapbox extends Component {
     // this.setCurrentMarker = this.setCurrentMarker.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
   }
-  async componentDidMount() {
+  async fetchData() {
     const query = `mutation getMarkerByUser( $username: String!) {
       getMarkerByUser(
         username: $username
@@ -34,15 +34,26 @@ export default class Mapbox extends Component {
       console.log(this.state.markers);
     }
   }
+  async componentDidMount() {
+   await this.fetchData();
+  }
+  componentWillReceiveProps(props) {
+    const { addedMarker } = this.props;
+    if (addedMarker) {
+      const oldMarkers = this.state.markers;
+      oldMarkers.push(addedMarker);
+      this.setState({markers: oldMarkers});
+    }
+  }
   renderMarker = (data) => {
     const {position,id} = data
-    return <Marker position={position} key = {id}
+    return <Marker position={position} key = {id} data={id}
             eventHandlers={{
               click: (e) => {
-                const id = e.target.getAttribute("key");
+                const id = e.target.options.data;
                 const marker = this.state.markers.find(marker => marker.id === id);
-                console.log('marker clicked', marker, id);
-                // this.props.showMarkerContent(marker);
+                console.log('marker clicked', marker);
+                this.props.showMarkerContent(marker);
               },
           }}>
       <Popup>Current position is ({position[0]},{position[1]})</Popup>

@@ -35,7 +35,7 @@ type Query {
 }
 
 type Mutation {
-  markerAdd(marker: Newmarker!): String
+  markerAdd(marker: Newmarker!): Marker
   getMarkerByUser(username:String!): [Marker]
   ###markerUpdate(id: Int!, changes: markerUpdateInputs!): marker!
   markerDelete(id: Int!): Boolean!

@@ -1,0 +1,103 @@
+.sider-wrapper {
+  position: absolute;
+  z-index: 10000;
+  float: left;
+  height: 100%;
+  .sider {
+    padding-top: 30px;
+    width: 100%;
+    height: 100%;
+    padding-left: 80px;
+    background-color: #e5e9f0;
+    flex-direction: column;
+    .location,
+    .post-open,
+    .post-fold,
+    .edit-area {
+      margin-top: 30px;
+    }
+    .edit-area {
+      width: 89%;
+      height: 63%;
+      // background-color: #fff;
+      :global {
+        .quill {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }
+      }
+    }
+    .post-open,.post-fold {
+      width: 89%;
+      display: flex;
+      justify-content: space-around;
+    }
+    .post-fold {
+      :global {
+        .ant-btn {
+          width: 35%;
+          border-radius: 25px;
+          border: none;
+          background-color: #88c0d0;
+          color: white;
+          transition: 1200ms;
+        }
+      }
+    }
+    .post-open {
+      :global {
+        .ant-btn {
+          width: 25%;
+          border-radius: 25px;
+          border: none;
+          background-color: #88c0d0;
+          color: white;
+          transition: 1200ms;
+        }
+      }
+    }
+    .expand-fold,
+    .expand-open {
+      position: absolute;
+      cursor: pointer;
+      width: 20px;
+      height: 70px;
+      background-color: #e5e9f0;
+      top: 50%;
+      right: 0%;
+      transform: translate(100%, -50%);
+      z-index: 10000;
+    }
+    .expand-fold {
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        width: 15px;
+        height: 15px;
+        margin-top: -7.5px;
+        transform: rotate(45deg);
+        border-top: 5px solid #5e81ac;
+        border-right: 5px solid #5e81ac;
+        transition: 200ms;
+      }
+    }
+    .expand-open {
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        width: 15px;
+        height: 15px;
+        margin-top: -7.5px;
+        transform: rotate(225deg);
+        border-top: 5px solid #5e81ac;
+        border-right: 5px solid #5e81ac;
+        transition: 200ms;
+      }
+    }
+  }
+}
