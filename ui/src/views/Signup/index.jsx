@@ -3,8 +3,15 @@ import { Form, Input, message, Button } from "antd";
 import styles from "./index.module.css";
 import imgURL from '../../img/Diary.jpeg';
 import graphQLFetch from '../../browser/graphQLFetch';
+import { Link, Navigate } from 'react-router-dom';
 
 export default class Signup extends Component {
+  constructor (){
+    super();
+    this.state = {
+      ifRedirect: false
+    };
+  }
   myForm = createRef();
   onFinish = () => {
     message.success("Submit success!");
@@ -22,18 +29,12 @@ export default class Signup extends Component {
     const data = await graphQLFetch(query, { username:username,email:email,pwd:password }, null);
     console.log(data);
     if(data.signup.signedIn) { // login success
-      message.success("Signup success!");
+      message.success("Signup success! Automatically logging in...");
       // const user = useContext(UserContext);
       this.props.onUserChange({signedIn:true, username:data.signup.username});
-      // user.setStore({signedIn:true, username:data.login.username});
-      //todo....
-      // store.userData.user = data.login; // i suppose {signedIn: true, username: xxxx}
-      // const user = UserContext; 
-      // user.signedIn = true;
-      // user.username = data.login.username; 
-      // history.push(`/home`, { user: data.login });
+      this.setState({ifRedirect: true});
     }
-    else { // username is in the db, but password incorrect.
+    else { // username is used.
       message.error("Username already used. Try another one :)");
     }
   }
@@ -60,6 +61,9 @@ export default class Signup extends Component {
           <div className={styles["signup-focus-page"]}>
             <img src={imgURL} alt="gg" />
           </div>
+          {
+          this.state.ifRedirect===true ? <div><Navigate to='/home'/> <Link to='/home'>Trying to automatically jump to Home... Click here if we messed up. </Link></div> : <div></div>
+          }
           <div className={styles["signup-form-wrapper"]}>
             <h3>Sign Up</h3>
             <div className={styles["signup-form-main"]}>
