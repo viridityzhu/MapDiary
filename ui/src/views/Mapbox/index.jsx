@@ -38,11 +38,19 @@ export default class Mapbox extends Component {
    await this.fetchData();
   }
   componentWillReceiveProps(props) {
-    const { addedMarker } = this.props;
+    const { addedMarker,delMarkerId } = this.props;
     if (addedMarker) {
       const oldMarkers = this.state.markers;
       oldMarkers.push(addedMarker);
       this.setState({markers: oldMarkers});
+    }
+    if (delMarkerId) {
+      console.log("mapbox del marker", delMarkerId);
+      const markers =[...this.state.markers];
+      const newMarkers = markers.filter((e)=>{
+        return e.id !== delMarkerId;
+      });
+      this.setState({markers: newMarkers}); 
     }
   }
   renderMarker = (data) => {

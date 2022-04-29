@@ -22,6 +22,7 @@ class Homepage extends Component {
       isEdit:false,
       editContent:'',
       editId:null,
+      delMarkerId:null
     };
     this.showSideNav = this.showSideNav.bind(this);
     this.showMarkerContent = this.showMarkerContent.bind(this);
@@ -48,8 +49,20 @@ class Homepage extends Component {
   setEditFalse(){
     this.setState({isEdit:false});
   }
-  onDelete(){
-
+  async onDelete(){//markerDelete(id: Int!): Boolean!
+    const id = this.state.editId;
+    const query = `mutation markerDelete( $id: Int!) {
+      markerDelete(
+        id: $id
+      ) 
+    }`;
+    const data = await graphQLFetch(query, { id }, null); 
+    if (data) {
+      console.log("Deleted pin", data);
+      message.success('Deleted pin!');
+      // window.location.reload();
+      this.setState({showMarkerContent:false, delMarkerId:id, showSideNav:false, currentMarker:'', isEdit:false, editContent:''});
+    }
   }
   async onSubmit (){
     if (this.state.isEdit){
@@ -139,7 +152,7 @@ class Homepage extends Component {
           <div>{this.state.showSideNav ? <SideNav editContent={this.state.editContent} clearEditContent={this.clearEditContent} isEdit={this.state.isEdit} setEditFalse={this.setEditFalse} changeText={this.changeText} onClear={this.onClear} onSubmit={this.onSubmit}/> : <div></div>}</div>
           <div>{this.state.showMarkerContent ? <SideContent marker={this.state.marker} onEdit={this.onEdit} onDelete={this.onDelete}/> : <div></div>}</div>
           
-          <Mapbox text={this.state.text} addedMarker={this.state.addedMarker} setEditId={this.setEditId} setEditFalse={this.setEditFalse} currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav} setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent} />
+          <Mapbox text={this.state.text} delMarkerId={this.state.delMarkerId} addedMarker={this.state.addedMarker} setEditId={this.setEditId} setEditFalse={this.setEditFalse} currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav} setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent} />
         </div>
         <Footer />
       </div>
