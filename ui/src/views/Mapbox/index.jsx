@@ -8,26 +8,6 @@ import styles from "./index.module.css";
 import "./markerFix";
 import graphQLFetch from "../../browser/graphQLFetch";
 
-
-const dataArr = [
-  {
-    id:0,
-    position:[1.353, 103.81]
-  },
-  {
-    id:1,
-    position:[1.362, 103.83]
-  },
-  {
-    id:2,
-    position:[1.373, 103.76]
-  },
-  {
-    id:3,
-    position:[1.333,103.75]
-  },
-
-]
 export default class Mapbox extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +36,15 @@ export default class Mapbox extends Component {
   }
   renderMarker = (data) => {
     const {position,id} = data
-    return <Marker position={position} key = {id}>
+    return <Marker position={position} key = {id}
+            eventHandlers={{
+              click: (e) => {
+                const id = e.target.getAttribute("key");
+                const marker = this.state.markers.find(marker => marker.id === id);
+                console.log('marker clicked', marker, id);
+                // this.props.showMarkerContent(marker);
+              },
+          }}>
       <Popup>Current position is ({position[0]},{position[1]})</Popup>
     </Marker>
   }
