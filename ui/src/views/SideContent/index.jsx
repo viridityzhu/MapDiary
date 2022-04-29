@@ -33,7 +33,7 @@ export default class SideContent extends Component {
             
           </div>
           <div className={styles[postConfig]}>
-            <Button type="primary" onClick={this.props.onChange}>Change</Button>
+            <Button type="primary" onClick={()=>{this.props.onEdit(content)}}>Edit</Button>
             <Button type="primary" onClick={this.props.onDelete}>Delete</Button>
           </div>
           <div className={styles[expandConfig]} onClick={this.handleClickExpand}></div>

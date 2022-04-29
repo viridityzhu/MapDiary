@@ -65,15 +65,14 @@ async function add(_, { marker }) {
   return savedmarker;
 }
 
-async function update(_, { id, changes }) {
+async function update(_, {  changes }) {
   const db = getDb();
-  if (changes.title || changes.status || changes.owner) {
-    const marker = await db.collection('markers').findOne({ id });
-    Object.assign(marker, changes);
-    validate(marker);
-  }
-  await db.collection('markers').updateOne({ id }, { $set: changes });
-  const savedmarker = await db.collection('markers').findOne({ id });
+
+    // const marker = await db.collection('markers').findOne({ id });
+    // Object.assign(marker, changes);
+
+  await db.collection('markers').updateOne({ id:changes.id }, { $set: changes });
+  const savedmarker = await db.collection('markers').findOne({ id:changes.id });
   return savedmarker;
 }
 

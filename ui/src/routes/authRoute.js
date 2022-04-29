@@ -7,7 +7,7 @@ function AuthRoute(props) {
     console.log(user.signedIn);
     // user = {signedIn:False/True, user_id:xxx, user_name:xxx}
     const { // path, element, role, backUrl
-        element,
+
         role,
         backUrl} = props;
     // 如果用户有权限，就渲染对应的路由

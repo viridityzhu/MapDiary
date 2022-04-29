@@ -54,6 +54,7 @@ export default class Mapbox extends Component {
                 const marker = this.state.markers.find(marker => marker.id === id);
                 console.log('marker clicked', marker);
                 this.props.showMarkerContent(marker);
+                this.props.setEditId(id)
               },
           }}>
       <Popup>Current position is ({position[0]},{position[1]})</Popup>
@@ -87,7 +88,7 @@ export default class Mapbox extends Component {
             </Popup>
           </Marker> */}
           {markers}
-          <LocationMarker showSideNav={this.props.showSideNav} setCurrentMarker={this.props.setCurrentMarker}/>
+          <LocationMarker showSideNav={this.props.showSideNav} setEditFalse={this.props.setEditFalse} setCurrentMarker={this.props.setCurrentMarker}/>
         </MapContainer>
       </div>
     );

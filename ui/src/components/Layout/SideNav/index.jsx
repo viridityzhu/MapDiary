@@ -16,6 +16,15 @@ export default class SideNav extends Component {
     const curState = this.state.expand
     this.setState({expand:!curState})
   }
+  // componentWillReceiveProps(props) {
+  //   const { editContent } = this.props;
+  //   console.log("sideNav receive props. then editContent in sideNav,", this.state.editContent);
+  //   if (editContent!=='') {
+      
+  //     this.setState({editContent:editContent});
+  //     console.log("then editContent in sideNav,", this.state.editContent);
+  //   }
+  // }
   render() {
     const sideWrapperConfig = this.state.expand?"side-wrapper-open":"side-wrapper-fold"
     const expandConfig = this.state.expand?"expand-open":"expand-fold"
@@ -27,10 +36,11 @@ export default class SideNav extends Component {
           <h2 className={styles.header}>Create a Diary Here</h2>
           {/* <h3 className={styles.location}>Jurong East</h3> */}
           <div className={styles["edit-area"]}>
-            <MyReactQuill text={this.props.text} changeText={this.props.changeText}/>
+            <MyReactQuill editContent={this.props.editContent} clearEditContent={this.props.clearEditContent} text={this.props.text} setEditFalse={this.props.setEditFalse} changeText={this.props.changeText}/>
           </div>
           <div className={styles[postConfig]}>
-            <Button type="primary" onClick={this.props.onSubmit}>Submit</Button>
+          <Button type="primary" onClick={this.props.onSubmit}>{this.props.isEdit? "Edit": "Submit"}</Button>
+            
             <Button type="primary" onClick={this.props.onClear}>Clear</Button>
           </div>
           <div className={styles[expandConfig]} onClick={this.handleClickExpand}></div>

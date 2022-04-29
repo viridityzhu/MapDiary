@@ -18,14 +18,22 @@ class Homepage extends Component {
       currentMarker:'',
       text:'',
       marker:null,
-      addedMarker:null
+      addedMarker:null,
+      isEdit:false,
+      editContent:'',
+      editId:null,
     };
     this.showSideNav = this.showSideNav.bind(this);
     this.showMarkerContent = this.showMarkerContent.bind(this);
     this.changeText = this.changeText.bind(this);
     this.setCurrentMarker = this.setCurrentMarker.bind(this);
+    this.setEditId = this.setEditId.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onClear = this.onClear.bind(this);
+    this.onEdit = this.onEdit.bind(this);
+    this.setEditFalse = this.setEditFalse.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.clearEditContent = this.clearEditContent.bind(this);
   }
   showMarkerContent(marker) {
     this.setState({showMarkerContent:true, marker:marker, showSideNav:false});
@@ -33,43 +41,85 @@ class Homepage extends Component {
   changeText(text){
     this.setState({text:text});
   }
+  onEdit (content){
+    console.log("onEdit, content:", content);
+    this.setState({showMarkerContent:false, editContent:content, isEdit:true, showSideNav:true}); 
+  }
+  setEditFalse(){
+    this.setState({isEdit:false});
+  }
+  onDelete(){
+
+  }
   async onSubmit (){
-    const text=this.state.text;
+    if (this.state.isEdit){
+      const text=this.state.text;
 
-    if (text.length === 0) {message.info("You haven't written down anything!")}
-    else { //markerAdd(marker: Newmarker!): String
-      // Newmarker{
-      //   username: Int!
-      //   content: String
-      //   position: [Float!]!
-      //   is_public: Boolean
-      // }
-      const marker = {
-        username:this.props.params.user,
-        content:text,
-        position:[this.state.currentMarker.lat, this.state.currentMarker.lng],
-        is_public:true
-      }
-      console.log(marker);
-      
-      const query = `mutation markerAdd( $marker: Newmarker!) {
-        markerAdd(
-          marker: $marker
-        ) {id username created_time
-          content position is_public}
-      }`;
-      const data = await graphQLFetch(query, { marker }, null);
-      if (data) {
-        console.log("submitted pin", data.markerAdd);
-        message.success('Submit new pin!');
-        // window.location.reload();
-        this.setState({showMarkerContent:true, marker:data.markerAdd, showSideNav:false, currentMarker:'', addedMarker:data.markerAdd,});
-      }
-    }
+        if (text.length === 0) {message.info("You haven't written down anything!")}
+        else {
+          const changes = {
+            content:text,
+            id:this.state.editId,
+            is_public:true
+          } 
+          // markerUpdate(changes: MarkerUpdateInputs!): Marker!
+          const query = `mutation markerUpdate( $changes: MarkerUpdateInputs!) {
+            markerUpdate(
+              changes: $changes
+            ) {id username created_time
+              content position is_public}
+          }`;
+          const data = await graphQLFetch(query, { changes }, null);
+          if (data) {
+            console.log("Updated pin", data.markerUpdate);
+            message.success('Updated pin!');
+            // window.location.reload();
+            this.setState({showMarkerContent:true, marker:data.markerUpdate, showSideNav:false, currentMarker:'', isEdit:false, editContent:''});
+            
+          }
+        }
 
+    }else {
+        const text=this.state.text;
+
+        if (text.length === 0) {message.info("You haven't written down anything!")}
+        else { //markerAdd(marker: Newmarker!): String
+          // Newmarker{
+          //   username: Int!
+          //   content: String
+          //   position: [Float!]!
+          //   is_public: Boolean
+          // }
+          const marker = {
+            username:this.props.params.user,
+            content:text,
+            position:[this.state.currentMarker.lat, this.state.currentMarker.lng],
+            is_public:true
+          }
+          console.log(marker);
+          
+          const query = `mutation markerAdd( $marker: Newmarker!) {
+            markerAdd(
+              marker: $marker
+            ) {id username created_time
+              content position is_public}
+          }`;
+          const data = await graphQLFetch(query, { marker }, null);
+          if (data) {
+            console.log("submitted pin", data.markerAdd);
+            message.success('Submit new pin!');
+            // window.location.reload();
+            this.setState({showMarkerContent:true, marker:data.markerAdd, showSideNav:false, currentMarker:'', addedMarker:data.markerAdd,});
+          }
+        }
+     }
   }
   onClear(){
     this.setState({text:''});
+  }
+  clearEditContent(){
+    console.log('clear edit cnt...');
+    this.setState({editContent:''}); 
   }
   showSideNav(yesorno) {
     this.setState({ showSideNav: yesorno, showMarkerContent:!yesorno });
@@ -78,15 +128,18 @@ class Homepage extends Component {
   setCurrentMarker(pos) {
     this.setState({currentMarker:pos});
   }
+  setEditId(id) {
+    this.setState({editId:id}); 
+  }
   render() {
     return (
       <div className={styles['homepage-wrapper']}>
           <Header />
         <div className={styles.content}>
-          <div>{this.state.showSideNav ? <SideNav changeText={this.changeText} onClear={this.onClear} onSubmit={this.onSubmit}/> : <div></div>}</div>
-          <div>{this.state.showMarkerContent ? <SideContent marker={this.state.marker}/> : <div></div>}</div>
+          <div>{this.state.showSideNav ? <SideNav editContent={this.state.editContent} clearEditContent={this.clearEditContent} isEdit={this.state.isEdit} setEditFalse={this.setEditFalse} changeText={this.changeText} onClear={this.onClear} onSubmit={this.onSubmit}/> : <div></div>}</div>
+          <div>{this.state.showMarkerContent ? <SideContent marker={this.state.marker} onEdit={this.onEdit} onDelete={this.onDelete}/> : <div></div>}</div>
           
-          <Mapbox text={this.state.text} addedMarker={this.state.addedMarker} currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav} setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent} />
+          <Mapbox text={this.state.text} addedMarker={this.state.addedMarker} setEditId={this.setEditId} setEditFalse={this.setEditFalse} currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav} setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent} />
         </div>
         <Footer />
       </div>

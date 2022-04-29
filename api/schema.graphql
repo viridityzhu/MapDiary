@@ -15,6 +15,11 @@ input Newmarker{
   position: [Float!]!
   is_public: Boolean
 }
+input MarkerUpdateInputs{
+  id: Int! 
+  content: String 
+  is_public: Boolean
+}
 
 type User{
   signedIn: Boolean!
@@ -37,7 +42,7 @@ type Query {
 type Mutation {
   markerAdd(marker: Newmarker!): Marker
   getMarkerByUser(username:String!): [Marker]
-  ###markerUpdate(id: Int!, changes: markerUpdateInputs!): marker!
+  markerUpdate(changes: MarkerUpdateInputs!): Marker!
   markerDelete(id: Int!): Boolean!
   markerRestore(id: Int!): Boolean!
   login(username: String!, pwd: String!): User

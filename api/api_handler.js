@@ -17,7 +17,7 @@ const resolvers = {
     login: auth.login,
     signup: auth.signup,
     markerAdd: marker.add,
-    // markerUpdate: marker.update,
+    markerUpdate: marker.update,
     markerDelete: marker.delete,
     markerRestore: marker.restore,
     getMarkerByUser: marker.getByUser

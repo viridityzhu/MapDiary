@@ -37,6 +37,7 @@ export default function LocationMarker(props) {
   const showEditArea = () => {
     if (state.popupText==="Create a diary"){
       props.showSideNav(true);
+      props.setEditFalse();
       setState((prevState)=>{
         const newState = prevState;
         newState.popupText = "Cancel";
