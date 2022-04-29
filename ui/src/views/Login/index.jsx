@@ -1,12 +1,20 @@
-import React, { Component, useContext } from "react";
+import React, { Component } from "react";
 import { Form, Input, Button, Switch, Menu, message } from "antd";
 import { Header } from "antd/lib/layout/layout";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import styles from "./index.module.css";
 import graphQLFetch from '../../browser/graphQLFetch';
-import UserContext from "../../browser/UserContext";
 
-export default class Login extends Component {
+import { Link, Navigate } from 'react-router-dom';
+
+class Login extends Component {
+  constructor (){
+    super();
+    this.state = {
+      ifRedirect: false
+    };
+  }
+  
   onHandleChange = (e) =>{
     // e: true/false
     console.log(e);
@@ -24,6 +32,9 @@ export default class Login extends Component {
       message.success("Login success!");
       // const user = useContext(UserContext);
       this.props.onUserChange({signedIn:true, username:data.login.username});
+      this.setState({ifRedirect: true});
+      // console.log(this.state.ifRedirect);
+      // history.push(`/home`);
       // user.setStore({signedIn:true, username:data.login.username});
       //todo....
       // store.userData.user = data.login; // i suppose {signedIn: true, username: xxxx}
@@ -134,7 +145,11 @@ export default class Login extends Component {
             <p>Copyright©SakuraFantasy 2022, All Rights Reserved</p>
           </div>
         </footer>
+        {
+        this.state.ifRedirect===true ? <div><Navigate to='/home'/> <Link to='/home'>Home</Link></div> : <div></div>
+        }
       </div>
     );
   }
 }
+export default Login;

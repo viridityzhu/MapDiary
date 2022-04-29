@@ -32,6 +32,7 @@ export default class Page extends React.Component {
     const { user } = this.state;
     if (user == null) {
       const data = await Page.fetchData(); // data = {user: [signedIn, user_id, user_name]}
+      console.log("page did mount.");
       console.log(data);
       this.setState({ user: data.user }); // user = {signedIn:False/True, user_id:xxx, user_name:xxx}
     }
@@ -46,7 +47,7 @@ export default class Page extends React.Component {
     const { user } = this.state;
     if (user == null) {
       // alert('no user.');
-      console.log('no user..');
+      // console.log('no user..');
      return null;
     }
 
@@ -61,9 +62,10 @@ export default class Page extends React.Component {
           )} */}
           {privateRoutes.map( // path, element, role, backUrl
             (route) => <Route key={route.path} path={route.path} element={<AuthRoute key={route.path} {...route} onUserChange={this.onUserChange}/>}>
-                          <Route path={route.path}/>
-                        </Route>
-          )}
+                          <Route key={route.path} path={route.path} element={route.element}/>
+                      </Route>
+          )// /home
+          }
           
           {/* {publicRoutes.map(
           ({path, element, ...routes}) => {
