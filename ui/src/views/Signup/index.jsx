@@ -9,7 +9,8 @@ export default class Signup extends Component {
   constructor (){
     super();
     this.state = {
-      ifRedirect: false
+      ifRedirect: false,
+      username:null,
     };
   }
   myForm = createRef();
@@ -32,7 +33,7 @@ export default class Signup extends Component {
       message.success("Signup success! Automatically logging in...");
       // const user = useContext(UserContext);
       this.props.onUserChange({signedIn:true, username:data.signup.username});
-      this.setState({ifRedirect: true});
+      this.setState({ifRedirect: true, username:data.login.username});
     }
     else { // username is used.
       message.error("Username already used. Try another one :)");
@@ -62,7 +63,7 @@ export default class Signup extends Component {
             <img src={imgURL} alt="gg" />
           </div>
           {
-          this.state.ifRedirect===true ? <div><Navigate to='/home'/> <Link to='/home'>Trying to automatically jump to Home... Click here if we messed up. </Link></div> : <div></div>
+          this.state.ifRedirect===true ? <div><Navigate to={'/home/'+this.state.username}/> <Link to={'/home/'+this.state.username}>Trying to automatically jump to Home... Click here if we messed up. </Link></div> : <div></div>
           }
           <div className={styles["signup-form-wrapper"]}>
             <h3>Sign Up</h3>

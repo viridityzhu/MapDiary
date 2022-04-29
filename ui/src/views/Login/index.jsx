@@ -64,7 +64,7 @@ class Login extends Component {
         <main className={styles["login-main-wrapper"]}>
           <div className={styles["login-logo-wrapper"]}></div>
           {
-          this.state.ifRedirect===true ? <div><Navigate to={'/home/'+this.state.username}/> <Link to='/home'>Trying to automatically jump to Home... Click here if we messed up. </Link></div> : <div></div>
+          this.state.ifRedirect===true ? <div><Navigate to={'/home/'+this.state.username}/> <Link to={'/home/'+this.state.username}>Trying to automatically jump to Home... Click here if we messed up. </Link></div> : <div></div>
           }
           <div className={styles["login-form-wrapper"]}>
             <Form

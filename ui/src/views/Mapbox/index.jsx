@@ -6,6 +6,7 @@ import './mapbox.css'
 import styles from "./index.module.css";
 // Solve the issue of broken marker image
 import "./markerFix";
+import graphQLFetch from "../../browser/graphQLFetch";
 
 
 const dataArr = [
@@ -33,31 +34,47 @@ export default class Mapbox extends Component {
     this.state = {
       currentMarker:'',
       showOthersPins: false,
+      markers:null
     };
     // this.showSideNav = this.showSideNav.bind(this);
 
     // this.setCurrentMarker = this.setCurrentMarker.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  async componentDidMount() {
+    const query = `mutation getMarkerByUser( $username: String!) {
+      getMarkerByUser(
+        username: $username
+      ) { id username created_time
+        content position is_public }
+    }`;
+    const data =  await graphQLFetch(query, { username:this.props.username }, null);
+    if (data) {
+      this.setState({ markers: data.getMarkerByUser });
+      console.log(this.state.markers);
+    }
+  }
   renderMarker = (data) => {
     const {position,id} = data
     return <Marker position={position} key = {id}>
       <Popup>Current position is ({position[0]},{position[1]})</Popup>
     </Marker>
   }
-  getMarkers = (showOthersPins) => {
-    if (showOthersPins) {
-      const query = "";
-    }else {
-      const query = "";
-    }
-    return dataArr.map((item,idx) => {
+  getMarkers =  () => {
+    const markers= this.state.markers 
+    if (markers == null) {
+      return null;
+     }
+    const items = markers.map((marker)=>{return {id:marker.id, position:marker.position}});
+    return items.map((item,idx) => {
       return this.renderMarker(item)
     })
   }
   render() {
     const markers = this.getMarkers(this.state.showOthersPins);
+    if (markers == null) {
+     return null;
+    }
     return (
       <div id="mapbox">
         <MapContainer className={styles['map-container']} center={[1.353, 103.81]} zoom={13}>

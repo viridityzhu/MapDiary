@@ -30,12 +30,13 @@ type User{
 type Query {
   user: User!
   marker: Marker!
-  markerList: [Marker]
+  
 
 }
 
 type Mutation {
   markerAdd(marker: Newmarker!): String
+  getMarkerByUser(username:String!): [Marker]
   ###markerUpdate(id: Int!, changes: markerUpdateInputs!): marker!
   markerDelete(id: Int!): Boolean!
   markerRestore(id: Int!): Boolean!

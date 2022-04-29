@@ -2,10 +2,11 @@ const { UserInputError } = require('apollo-server-express');
 const { getDb, getNextSequence } = require('./db.js');
 const { mustBeSignedIn } = require('./auth.js');
 
-async function get(_, { id }) {
+async function getByUser(_, { username }) {
   const db = getDb();
-  const marker = await db.collection('markers').findOne({ id });
-  return marker;
+  const markers = await db.collection('markers').find({ username:username }).toArray();
+  console.log(markers);
+  return markers;
 }
 
 const PAGE_SIZE = 10;
@@ -139,9 +140,9 @@ async function counts(_, { status, effortMin, effortMax }) {
 module.exports = {
   list,
   add,//: mustBeSignedIn(add),
-  get,
   update,//: mustBeSignedIn(update),
   delete:remove, //: mustBeSignedIn(remove),
   restore,//: mustBeSignedIn(restore),
   counts,
+  getByUser,
 };

@@ -24,7 +24,6 @@ class Homepage extends Component {
   }
   changeText(text){
     this.setState({text:text});
-    console.log(this.state.text);
   }
   async onSubmit (){
     const text=this.state.text;
@@ -79,7 +78,7 @@ class Homepage extends Component {
         <div className={styles.content}>
           <div>{this.state.showSideNav ? <SideNav changeText={this.changeText} onClear={this.onClear} onSubmit={this.onSubmit}/> : <div></div>}</div>
           
-          <Mapbox text={this.state.text} showSideNav={this.showSideNav} setCurrentMarker={this.setCurrentMarker}/>
+          <Mapbox text={this.state.text} username={this.props.params.user} showSideNav={this.showSideNav} setCurrentMarker={this.setCurrentMarker}/>
         </div>
         <Footer />
       </div>

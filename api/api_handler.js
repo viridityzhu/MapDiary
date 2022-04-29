@@ -9,8 +9,8 @@ const auth = require('./auth.js');
 const resolvers = {
   Query: {
     user: auth.resolveUser,
-    markerList: marker.list,
-    marker: marker.get,
+    // markerList: marker.list,
+
     // markerCounts: marker.counts,
   },
   Mutation: {
@@ -20,6 +20,7 @@ const resolvers = {
     // markerUpdate: marker.update,
     markerDelete: marker.delete,
     markerRestore: marker.restore,
+    getMarkerByUser: marker.getByUser
   },
   GraphQLDate,
 };
