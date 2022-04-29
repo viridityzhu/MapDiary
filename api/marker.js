@@ -52,16 +52,16 @@ function validate(marker) {
 
 async function add(_, { marker }) {
   const db = getDb();
-  validate(marker);
+
 
   const newmarker = Object.assign({}, marker);
   newmarker.created_time = new Date();
   newmarker.id = await getNextSequence('markers');
 
   const result = await db.collection('markers').insertOne(newmarker);
-  const savedmarker = await db.collection('markers')
-    .findOne({ _id: result.insertedId });
-  return savedmarker;
+  // const savedmarker = await db.collection('markers')
+  //   .findOne({ _id: result.insertedId });
+  return "Success.";
 }
 
 async function update(_, { id, changes }) {
@@ -138,10 +138,10 @@ async function counts(_, { status, effortMin, effortMax }) {
 
 module.exports = {
   list,
-  add: mustBeSignedIn(add),
+  add,//: mustBeSignedIn(add),
   get,
-  update: mustBeSignedIn(update),
-  delete: mustBeSignedIn(remove),
-  restore: mustBeSignedIn(restore),
+  update,//: mustBeSignedIn(update),
+  delete:remove, //: mustBeSignedIn(remove),
+  restore,//: mustBeSignedIn(restore),
   counts,
 };

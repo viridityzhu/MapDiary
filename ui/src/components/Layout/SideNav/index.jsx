@@ -9,7 +9,7 @@ import classNames from "classnames";
 export default class SideNav extends Component {
   constructor(props) {
     super(props)
-    this.state = {expand:false}
+    this.state = {expand:false};
   }
   handleClickExpand = () => {
     // Trigger the state of expand onClick
@@ -27,11 +27,11 @@ export default class SideNav extends Component {
           <h2 className={styles.header}>Create a Diary Here</h2>
           {/* <h3 className={styles.location}>Jurong East</h3> */}
           <div className={styles["edit-area"]}>
-            <MyReactQuill />
+            <MyReactQuill text={this.props.text} changeText={this.props.changeText}/>
           </div>
           <div className={styles[postConfig]}>
-            <Button type="primary">Submit</Button>
-            <Button type="primary">Clear</Button>
+            <Button type="primary" onClick={this.props.onSubmit}>Submit</Button>
+            <Button type="primary" onClick={this.props.onClear}>Clear</Button>
           </div>
           <div className={styles[expandConfig]} onClick={this.handleClickExpand}></div>
         </div>

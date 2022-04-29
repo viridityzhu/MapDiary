@@ -11,7 +11,8 @@ class Login extends Component {
   constructor (){
     super();
     this.state = {
-      ifRedirect: false
+      ifRedirect: false,
+      username:null,
     };
   }
   
@@ -32,7 +33,7 @@ class Login extends Component {
       message.success("Login success!");
       // const user = useContext(UserContext);
       this.props.onUserChange({signedIn:true, username:data.login.username});
-      this.setState({ifRedirect: true});
+      this.setState({ifRedirect: true, username:data.login.username});
     }
     else if(!data.login.username) { // the username is not in the db
       message.error("Did you forget to signup before login?");
@@ -63,7 +64,7 @@ class Login extends Component {
         <main className={styles["login-main-wrapper"]}>
           <div className={styles["login-logo-wrapper"]}></div>
           {
-          this.state.ifRedirect===true ? <div><Navigate to='/home'/> <Link to='/home'>Trying to automatically jump to Home... Click here if we messed up. </Link></div> : <div></div>
+          this.state.ifRedirect===true ? <div><Navigate to={'/home/'+this.state.username}/> <Link to='/home'>Trying to automatically jump to Home... Click here if we messed up. </Link></div> : <div></div>
           }
           <div className={styles["login-form-wrapper"]}>
             <Form

@@ -2,19 +2,15 @@ scalar GraphQLDate
 
 type Marker {
   id: Int!
-  user_id: Int!
+  username: String!
   created_time: GraphQLDate!
-  title: String!
   content: String!
   position: [Float!]!
   is_public: Boolean
 }
 
 input Newmarker{
-  id: Int!
-  user_id: Int!
-  created_time: GraphQLDate!
-  title: String
+  username: String!
   content: String
   position: [Float!]!
   is_public: Boolean

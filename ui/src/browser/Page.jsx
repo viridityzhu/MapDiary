@@ -62,7 +62,7 @@ export default class Page extends React.Component {
           )} */}
           {privateRoutes.map( // path, element, role, backUrl
             (route) => <Route key={route.path} path={route.path} element={<AuthRoute key={route.path} {...route} onUserChange={this.onUserChange}/>}>
-                          <Route key={route.path} path={route.path} element={route.element}/>
+                          <Route key={route.path} path={route.path+'/:user'} element={route.element}/>
                       </Route>
           )// /home
           }
