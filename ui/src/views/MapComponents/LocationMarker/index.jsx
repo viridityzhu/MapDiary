@@ -1,25 +1,60 @@
-import React, { useState } from 'react'
+import React, { useState , useRef} from 'react'
 import {
   Marker,
   Popup,
   useMapEvents,
 } from 'react-leaflet'
+import * as L from "leaflet";
 import { Button } from 'antd'
+const yellowIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
 
-export default function LocationMarker() {
-  const [position, setPosition] = useState(null)
+export default function LocationMarker(props) {
+  const newmarker = useRef();
+  const [state, setState] = useState({position:null, popupText:"Create a diary"});
+  // const [position, setPosition, popupbtn, setPopupbtn] = useState(null)
   useMapEvents({
     click(e) {
-        setPosition(e.latlng)
+        setState((prevState)=>{
+          const newState = prevState;
+          newState.position = e.latlng;
+          return newState;
+        })
+        props.setCurrentMarker(e.latlng);
+        
+        // useEffect(() => {
+          newmarker.current.openPopup();
+        // },[]);
     },
   })
   const showEditArea = () => {
-      console.log('111')
+    if (state.popupText==="Create a diary"){
+      props.showSideNav(true);
+      setState((prevState)=>{
+        const newState = prevState;
+        newState.popupText = "Cancel";
+        return newState;
+      })
+    }else {
+      props.showSideNav(false);
+      setState((prevState)=>{
+        const newState = prevState;
+        newState.popupText = "Create a diary";
+        return newState;
+      })
+    }
+      
   }
 
-  return position === null ? null : (
-    <Marker position={position}>
-      <Popup><Button type='primary' onClick={()=> {showEditArea()}}>Create a diary</Button></Popup>
+  return state.position === null ? null : (
+    <Marker position={state.position} ref={newmarker} icon={yellowIcon} >
+      <Popup ><Button type='primary' onClick={()=> {showEditArea()}}>{state.popupText}</Button></Popup>
     </Marker>
   )
 }

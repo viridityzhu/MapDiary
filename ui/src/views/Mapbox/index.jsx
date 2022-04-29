@@ -28,22 +28,36 @@ const dataArr = [
 
 ]
 export default class Mapbox extends Component {
-  state = {
-    currentMarker:''
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentMarker:'',
+      showOthersPins: false,
+    };
+    // this.showSideNav = this.showSideNav.bind(this);
+
+    // this.setCurrentMarker = this.setCurrentMarker.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   renderMarker = (data) => {
     const {position,id} = data
     return <Marker position={position} key = {id}>
       <Popup>Current position is ({position[0]},{position[1]})</Popup>
     </Marker>
   }
-  getMarkers = (dataArr) => {
+  getMarkers = (showOthersPins) => {
+    if (showOthersPins) {
+      const query = "";
+    }else {
+      const query = "";
+    }
     return dataArr.map((item,idx) => {
       return this.renderMarker(item)
     })
   }
   render() {
-    const markers = this.getMarkers(dataArr)
+    const markers = this.getMarkers(this.state.showOthersPins);
     return (
       <div id="mapbox">
         <MapContainer className={styles['map-container']} center={[1.353, 103.81]} zoom={13}>
@@ -57,7 +71,7 @@ export default class Mapbox extends Component {
             </Popup>
           </Marker> */}
           {markers}
-          <LocationMarker/>
+          <LocationMarker showSideNav={this.props.showSideNav} setCurrentMarker={this.props.setCurrentMarker}/>
         </MapContainer>
       </div>
     );
