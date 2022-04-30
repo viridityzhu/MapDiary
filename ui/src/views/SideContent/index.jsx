@@ -21,12 +21,12 @@ export default class SideContent extends Component {
     const expandConfig = this.state.expand?"expand-open":"expand-fold"
     const postConfig = this.state.expand?"post-open":"post-fold"
     const classnames = classNames(styles["sider-wrapper"],sideWrapperConfig);
-    const date = this.props.marker.created_time;
-    const content = this.props.marker.content;
+    const date = this.props.marker && this.props.marker.created_time;
+    const content = this.props.marker && this.props.marker.content;
     return (
       <div className={classnames}>
         <div className={styles.sider}>
-          <h3 className={styles.header}>{date.toString()}</h3>
+          <h3 className={styles.header}>{date && date.toString()}</h3>
           {/* <h3 className={styles.location}>Jurong East</h3> */}
           <div className={styles["edit-area"]}>
             <div dangerouslySetInnerHTML={{ __html: content }} />
