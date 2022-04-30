@@ -91,9 +91,9 @@ export default class Mapbox extends Component {
     if (markers == null) {
       return null;
      }
-    const items = markers.map((marker) => { return { id: marker.id, position: marker.position,username: marker.username } });
+    var items = markers.map((marker) => { return { id: marker.id, position: marker.position,username: marker.username } });
     if(!this.props.showOthers) {
-      items = items.find(e => e.username !== this.props.username);
+      items = items.find(e => e.username === this.props.username);
       console.log("do not show others.")
     }
     console.log('items', items)
