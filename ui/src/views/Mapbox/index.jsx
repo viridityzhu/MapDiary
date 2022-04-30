@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import * as L from "leaflet";
 import LocationMarker from "../MapComponents/LocationMarker";
 import "../../../node_modules/leaflet/dist/leaflet.css";
 import './mapbox.css'
@@ -8,12 +9,19 @@ import styles from "./index.module.css";
 import "./markerFix";
 import graphQLFetch from "../../browser/graphQLFetch";
 
+const greenIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
 export default class Mapbox extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentMarker:this.props.currentMarker,
-      showOthersPins: false,
     };
     // this.showSideNav = this.showSideNav.bind(this);
 
@@ -53,8 +61,9 @@ export default class Mapbox extends Component {
   //   }
   // }
   renderMarker = (data) => {
-    const {position,id} = data
-    return <Marker position={position} key = {id} data={id}
+    const { position, id, username } = data
+    return (username === this.props.username ?
+      <Marker position={position} key={id} data={id}
             eventHandlers={{
               click: (e) => {
                 const id = e.target.options.data;
@@ -63,16 +72,26 @@ export default class Mapbox extends Component {
                 this.props.showMarkerContent(marker);
                 this.props.setEditId(id)
               },
-          }}>
-      <Popup>Current position is ({position[0]},{position[1]})</Popup>
-    </Marker>
+        }}><Popup>Current position is ({position[0]},{position[1]})</Popup>
+      </Marker> :
+      <Marker position={position} key={id} data={id} icon={greenIcon}
+      eventHandlers={{
+        click: (e) => {
+          const id = e.target.options.data;
+          const marker = this.props.markers.find(marker => marker.id === id);
+          console.log('marker clicked', marker);
+          this.props.showMarkerContent(marker);
+        },
+        }}>
+        <Popup>Current position is ({position[0]},{position[1]}), visited by { username }</Popup>
+      </Marker>)
   }
   getMarkers =  () => {
     const markers= this.props.markers 
     if (markers == null) {
       return null;
      }
-    const items = markers.map((marker) => { return { id: marker.id, position: marker.position } });
+    const items = markers.map((marker) => { return { id: marker.id, position: marker.position,username: marker.username } });
     console.log('items', items)
     return items.map((item,idx) => {
       return this.renderMarker(item)

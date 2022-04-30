@@ -16,7 +16,8 @@ export default class SideContent extends Component {
     const curState = this.state.expand
     this.setState({expand:!curState})
   }
-  render() {
+  render () {
+    const { marker, username } = this.props;
     const sideWrapperConfig = this.state.expand?"side-wrapper-open":"side-wrapper-fold"
     const expandConfig = this.state.expand?"expand-open":"expand-fold"
     const postConfig = this.state.expand?"post-open":"post-fold"
@@ -33,8 +34,12 @@ export default class SideContent extends Component {
             
           </div>
           <div className={styles[postConfig]}>
-            <Button type="primary" onClick={()=>{this.props.onEdit(content)}}>Edit</Button>
-            <Button type="primary" onClick={this.props.onDelete}>Delete</Button>
+            {
+              (marker && marker.username && marker.username === username) &&
+            (<>
+              <Button type="primary" onClick={()=>{this.props.onEdit(content)}}>Edit</Button>
+              <Button type="primary" onClick={this.props.onDelete}>Delete</Button>
+            </>)}
           </div>
           <div className={styles[expandConfig]} onClick={this.handleClickExpand}></div>
           {/* TODO: add another expand button, onclick=not show this sideContent */}
