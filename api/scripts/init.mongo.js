@@ -19,19 +19,17 @@ db.users.remove({});
 const markersDB = [
   {
     id: 0,
-    user_id: 123456,
+    username: 'zhujiayin',
     created_time: new Date('2019-01-15'),
-    title: 'My Trip In Singapore',
-    content: 'Run using the mongo shell. For remote databases, ensure that the connection string is supplied in the command line.',
+    content: '<h1>Welcome to Map Diary!!!</h1><p>Hope you enjoy our app!</p>',
     position: [1.353, 103.81],
     is_public: true
   },
   {
     id: 1,
-    user_id: 123456,
+    username: 'zhanglin',
     created_time: new Date('2019-01-15'),
-    title: 'The Great Wall in Winter Is Wonderful',
-    content: 'Wubalabadabdab Run using the mongo shell. For remote databases, ensure that the connection string is supplied in the command line.',
+    content: '<h1>This is Singapore!</h1><p>I live here for several years. I love SG.</p><p>Enjoy Singapore!</p>',
     position: [1.362, 103.83],
     is_public: true
   },
