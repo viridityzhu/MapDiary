@@ -33,7 +33,7 @@ export default class Signup extends Component {
       message.success("Signup success! Automatically logging in...");
       // const user = useContext(UserContext);
       this.props.onUserChange({signedIn:true, username:data.signup.username});
-      this.setState({ifRedirect: true, username:data.login.username});
+      this.setState({ifRedirect: true, username:data.signup.username});
     }
     else { // username is used.
       message.error("Username already used. Try another one :)");
