@@ -73,7 +73,8 @@ export default class Mapbox extends Component {
     if (markers == null) {
       return null;
      }
-    const items = markers.map((marker)=>{return {id:marker.id, position:marker.position}});
+    const items = markers.map((marker) => { return { id: marker.id, position: marker.position } });
+    console.log('items', items)
     return items.map((item,idx) => {
       return this.renderMarker(item)
     })
@@ -96,7 +97,9 @@ export default class Mapbox extends Component {
             </Popup>
           </Marker> */}
           {markers}
-          <LocationMarker showSideNav={this.props.showSideNav} setEditFalse={this.props.setEditFalse} setCurrentMarker={this.props.setCurrentMarker}/>
+          <LocationMarker showSideNav={this.props.showSideNav} setEditFalse={this.props.setEditFalse}
+            LMarker={this.props.LMarker} setLMarker={this.props.setLMarker}
+            setCurrentMarker={this.props.setCurrentMarker} />
         </MapContainer>
       </div>
     );

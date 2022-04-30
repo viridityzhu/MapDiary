@@ -22,7 +22,8 @@ class Homepage extends Component {
       isEdit:false,
       editContent:'',
       editId:null,
-      delMarkerId:null
+      delMarkerId:null,
+      LMarker:false
     };
     this.showSideNav = this.showSideNav.bind(this);
     this.showMarkerContent = this.showMarkerContent.bind(this);
@@ -35,6 +36,9 @@ class Homepage extends Component {
     this.setEditFalse = this.setEditFalse.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.clearEditContent = this.clearEditContent.bind(this);
+  }
+  setLMarker = (flag) => {
+    this.setState({LMarker:flag})
   }
   showMarkerContent(marker) {
     this.setState({showMarkerContent:true, marker:marker, showSideNav:false});
@@ -122,7 +126,8 @@ class Homepage extends Component {
             console.log("submitted pin", data.markerAdd);
             message.success('Submit new pin!');
             // window.location.reload();
-            this.setState({showMarkerContent:true, marker:data.markerAdd, showSideNav:false, currentMarker:'', addedMarker:data.markerAdd,});
+            this.setState({ showMarkerContent: true, marker: data.markerAdd, showSideNav: false, currentMarker: '', addedMarker: data.markerAdd, });
+            this.setLMarker(false)
           }
         }
      }
@@ -152,7 +157,13 @@ class Homepage extends Component {
           <div>{this.state.showSideNav ? <SideNav editContent={this.state.editContent} clearEditContent={this.clearEditContent} isEdit={this.state.isEdit} setEditFalse={this.setEditFalse} changeText={this.changeText} onClear={this.onClear} onSubmit={this.onSubmit}/> : <div></div>}</div>
           <div>{this.state.showMarkerContent ? <SideContent marker={this.state.marker} onEdit={this.onEdit} onDelete={this.onDelete}/> : <div></div>}</div>
           
-          <Mapbox text={this.state.text} delMarkerId={this.state.delMarkerId} addedMarker={this.state.addedMarker} setEditId={this.setEditId} setEditFalse={this.setEditFalse} currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav} setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent} />
+          <Mapbox text={this.state.text} delMarkerId={this.state.delMarkerId}
+            addedMarker={this.state.addedMarker} setEditId={this.setEditId} setEditFalse={this.setEditFalse}
+            currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav}
+            setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent}
+            LMarker={this.state.LMarker} setLMarker={this.setLMarker}
+          />
+
         </div>
         <Footer />
       </div>

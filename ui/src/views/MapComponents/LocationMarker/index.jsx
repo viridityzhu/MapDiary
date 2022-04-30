@@ -1,4 +1,4 @@
-import React, { useState , useRef} from 'react'
+import React, { useState , useRef, useEffect} from 'react'
 import {
   Marker,
   Popup,
@@ -19,6 +19,15 @@ export default function LocationMarker(props) {
   const newmarker = useRef();
   const [state, setState] = useState({position:null, popupText:"Create a diary"});
   // const [position, setPosition, popupbtn, setPopupbtn] = useState(null)
+  
+  // Reset LMarker when submit
+  const { LMarker, setLMarker } = props
+  useEffect(() => {
+    if (!LMarker) {
+      setState({position:null, popupText:"Create a diary"})
+    }
+  }, [LMarker])
+
   useMapEvents({
     click(e) {
         setState((prevState)=>{
@@ -27,7 +36,7 @@ export default function LocationMarker(props) {
           return newState;
         })
         props.setCurrentMarker(e.latlng);
-        
+        setLMarker(true) // 开启LMarker
         // useEffect(() => {
           newmarker.current.openPopup();
         // },[]);
@@ -45,6 +54,7 @@ export default function LocationMarker(props) {
       })
     }else {
       props.showSideNav(false);
+      setLMarker(false)
       setState((prevState)=>{
         const newState = prevState;
         newState.popupText = "Create a diary";
@@ -55,7 +65,7 @@ export default function LocationMarker(props) {
       
   }
 
-  return state.position === null ? null : (
+  return !LMarker ? null : (
     <Marker position={state.position} ref={newmarker} icon={yellowIcon} >
       <Popup ><Button type='primary' onClick={()=> {showEditArea()}}>{state.popupText}</Button></Popup>
     </Marker>
