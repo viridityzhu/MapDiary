@@ -17,7 +17,8 @@ class Homepage extends Component {
       showMarkerContent: false,
       currentMarker:'',
       text:'',
-      marker:null,
+      marker: null,
+      markers: null,
       addedMarker:null,
       isEdit:false,
       editContent:'',
@@ -40,6 +41,20 @@ class Homepage extends Component {
   setLMarker = (flag) => {
     this.setState({LMarker:flag})
   }
+  // 把获取数据的逻辑放在父组件中
+  async fetchData() {
+    const query = `mutation getMarkerByUser( $username: String!) {
+      getMarkerByUser(
+        username: $username
+      ) { id username created_time
+        content position is_public }
+    }`;
+    const data =  await graphQLFetch(query, { username:this.props.params.user }, null);
+    if (data) {
+      this.setState({ markers: data.getMarkerByUser });
+      console.log('this.state.markers in Homepage: ', this.state.markers);
+    }
+  }
   showMarkerContent(marker) {
     this.setState({showMarkerContent:true, marker:marker, showSideNav:false});
   }
@@ -53,6 +68,10 @@ class Homepage extends Component {
   setEditFalse(){
     this.setState({isEdit:false});
   }
+
+
+
+
   async onDelete(){//markerDelete(id: Int!): Boolean!
     const id = this.state.editId;
     const query = `mutation markerDelete( $id: Int!) {
@@ -130,7 +149,9 @@ class Homepage extends Component {
             this.setLMarker(false)
           }
         }
+        
      }
+     this.fetchData()
   }
   onClear(){
     this.setState({text:''});
@@ -149,6 +170,10 @@ class Homepage extends Component {
   setEditId(id) {
     this.setState({editId:id}); 
   }
+
+  componentDidMount () {
+    this.fetchData()
+  }
   render() {
     return (
       <div className={styles['homepage-wrapper']}>
@@ -157,7 +182,7 @@ class Homepage extends Component {
           <div>{this.state.showSideNav ? <SideNav editContent={this.state.editContent} clearEditContent={this.clearEditContent} isEdit={this.state.isEdit} setEditFalse={this.setEditFalse} changeText={this.changeText} onClear={this.onClear} onSubmit={this.onSubmit}/> : <div></div>}</div>
           <div>{this.state.showMarkerContent ? <SideContent marker={this.state.marker} onEdit={this.onEdit} onDelete={this.onDelete}/> : <div></div>}</div>
           
-          <Mapbox text={this.state.text} delMarkerId={this.state.delMarkerId}
+          <Mapbox text={this.state.text} delMarkerId={this.state.delMarkerId} markers={this.state.markers}
             addedMarker={this.state.addedMarker} setEditId={this.setEditId} setEditFalse={this.setEditFalse}
             currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav}
             setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent}

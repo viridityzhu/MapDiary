@@ -14,43 +14,42 @@ export default class Mapbox extends Component {
     this.state = {
       currentMarker:this.props.currentMarker,
       showOthersPins: false,
-      markers:null
     };
     // this.showSideNav = this.showSideNav.bind(this);
 
     // this.setCurrentMarker = this.setCurrentMarker.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
   }
-  async fetchData() {
-    const query = `mutation getMarkerByUser( $username: String!) {
-      getMarkerByUser(
-        username: $username
-      ) { id username created_time
-        content position is_public }
-    }`;
-    const data =  await graphQLFetch(query, { username:this.props.username }, null);
-    if (data) {
-      this.setState({ markers: data.getMarkerByUser });
-      console.log(this.state.markers);
-    }
-  }
-  async componentDidMount() {
-   await this.fetchData();
-  }
+  // async fetchData() {
+  //   const query = `mutation getMarkerByUser( $username: String!) {
+  //     getMarkerByUser(
+  //       username: $username
+  //     ) { id username created_time
+  //       content position is_public }
+  //   }`;
+  //   const data =  await graphQLFetch(query, { username:this.props.username }, null);
+  //   if (data) {
+  //     this.setState({ markers: data.getMarkerByUser });
+  //     console.log(this.state.markers);
+  //   }
+  // }
+  // async componentDidMount() {
+  //  await this.fetchData();
+  // }
   componentWillReceiveProps(props) {
     const { addedMarker,delMarkerId } = this.props;
-    if (addedMarker) {
-      const oldMarkers = this.state.markers;
-      oldMarkers.push(addedMarker);
-      this.setState({markers: oldMarkers});
-    }
+    // if (addedMarker) {
+    //   const oldMarkers = this.state.markers;
+    //   oldMarkers.push(addedMarker);
+    //   this.setState({markers: oldMarkers});
+    // }
     if (delMarkerId) {
       console.log("mapbox del marker", delMarkerId);
-      const markers =[...this.state.markers];
+      const markers =[...this.props.markers];
       const newMarkers = markers.filter((e)=>{
         return e.id !== delMarkerId;
       });
-      this.setState({markers: newMarkers}); 
+      // this.setState({markers: newMarkers}); 
     }
   }
   renderMarker = (data) => {
@@ -59,7 +58,7 @@ export default class Mapbox extends Component {
             eventHandlers={{
               click: (e) => {
                 const id = e.target.options.data;
-                const marker = this.state.markers.find(marker => marker.id === id);
+                const marker = this.props.markers.find(marker => marker.id === id);
                 console.log('marker clicked', marker);
                 this.props.showMarkerContent(marker);
                 this.props.setEditId(id)
@@ -69,7 +68,7 @@ export default class Mapbox extends Component {
     </Marker>
   }
   getMarkers =  () => {
-    const markers= this.state.markers 
+    const markers= this.props.markers 
     if (markers == null) {
       return null;
      }
