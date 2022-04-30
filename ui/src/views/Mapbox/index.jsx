@@ -36,22 +36,22 @@ export default class Mapbox extends Component {
   // async componentDidMount() {
   //  await this.fetchData();
   // }
-  componentWillReceiveProps(props) {
-    const { addedMarker,delMarkerId } = this.props;
-    // if (addedMarker) {
-    //   const oldMarkers = this.state.markers;
-    //   oldMarkers.push(addedMarker);
-    //   this.setState({markers: oldMarkers});
-    // }
-    if (delMarkerId) {
-      console.log("mapbox del marker", delMarkerId);
-      const markers =[...this.props.markers];
-      const newMarkers = markers.filter((e)=>{
-        return e.id !== delMarkerId;
-      });
-      // this.setState({markers: newMarkers}); 
-    }
-  }
+  // componentWillReceiveProps(props) {
+  //   const { addedMarker,delMarkerId } = this.props;
+  //   // if (addedMarker) {
+  //   //   const oldMarkers = this.state.markers;
+  //   //   oldMarkers.push(addedMarker);
+  //   //   this.setState({markers: oldMarkers});
+  //   // }
+  //   if (delMarkerId) {
+  //     console.log("mapbox del marker", delMarkerId);
+  //     const markers =[...this.props.markers];
+  //     const newMarkers = markers.filter((e)=>{
+  //       return e.id !== delMarkerId;
+  //     });
+  //     // this.setState({markers: newMarkers}); 
+  //   }
+  // }
   renderMarker = (data) => {
     const {position,id} = data
     return <Marker position={position} key = {id} data={id}
@@ -79,7 +79,7 @@ export default class Mapbox extends Component {
     })
   }
   render() {
-    const markers = this.getMarkers(this.state.showOthersPins);
+    const markers = this.getMarkers();
     if (markers == null) {
      return null;
     }

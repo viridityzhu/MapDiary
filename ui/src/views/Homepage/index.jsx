@@ -86,6 +86,7 @@ class Homepage extends Component {
       // window.location.reload();
       this.setState({showMarkerContent:false, delMarkerId:id, showSideNav:false, currentMarker:'', isEdit:false, editContent:''});
     }
+    this.fetchData()
   }
   async onSubmit (){
     if (this.state.isEdit){
