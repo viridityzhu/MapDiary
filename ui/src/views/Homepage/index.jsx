@@ -58,7 +58,7 @@ class Homepage extends Component {
   showNavOnly = (flag) => {
     this.setState({ showSideNav: flag })
   }
-  
+
   showMarkerContent(marker) {
     this.setState({showMarkerContent:true, marker:marker, showSideNav:false});
   }
@@ -183,7 +183,7 @@ class Homepage extends Component {
   render() {
     return (
       <div className={styles['homepage-wrapper']}>
-          <Header />
+          <Header username={this.props.params.user} />
         <div className={styles.content}>
           <div>{this.state.showSideNav ? <SideNav editContent={this.state.editContent} clearEditContent={this.clearEditContent} isEdit={this.state.isEdit} setEditFalse={this.setEditFalse} changeText={this.changeText} onClear={this.onClear} onSubmit={this.onSubmit}/> : <div></div>}</div>
           <div>{this.state.showMarkerContent ? <SideContent marker={this.state.marker} onEdit={this.onEdit} onDelete={this.onDelete}/> : <div></div>}</div>
