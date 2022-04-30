@@ -4,9 +4,10 @@ const { mustBeSignedIn } = require('./auth.js');
 
 async function getByUser(_, { username }) {
   const db = getDb();
-  const markers = await db.collection('markers').find({ username:username }).toArray();
-  console.log(markers);
-  return markers;
+  const LIMIT = 100; // anyway
+  const userMarkers = await db.collection('markers').find({ username:username }).toArray();
+  const othersMarkers = await db.collection('markers').find({username: { $ne: username } }).limit(LIMIT).toArray(); 
+  return userMarkers.concat(othersMarkers);
 }
 
 const PAGE_SIZE = 10;
