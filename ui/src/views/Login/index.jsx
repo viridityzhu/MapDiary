@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, Input, Button, Switch, Menu, message } from "antd";
 import { Header } from "antd/lib/layout/layout";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import LoginLogo from '../../img/LoginLogo.JPG'
 import styles from "./index.module.css";
 import graphQLFetch from '../../browser/graphQLFetch';
 
@@ -62,7 +63,9 @@ class Login extends Component {
           </Header>
         </header>
         <main className={styles["login-main-wrapper"]}>
-          <div className={styles["login-logo-wrapper"]}></div>
+          <div className={styles["login-logo-wrapper"]}>
+            <img src={ LoginLogo} alt="Broken Img" style={{width:"100%",height:"100%"}} />
+          </div>
           {
           this.state.ifRedirect===true ? <div><Navigate to={'/home/'+this.state.username}/> <Link to={'/home/'+this.state.username}>Trying to automatically jump to Home... Click here if we messed up. </Link></div> : <div></div>
           }

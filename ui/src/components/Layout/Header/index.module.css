@@ -1,16 +1,15 @@
 .logo {
+  overflow: hidden;
   float: left;
-  margin: 12px auto;
-  height: 40px;
+  margin: 5px auto;
+  height: 54px;
+  border-radius: 10px;
   line-height: 40px;
   width: 100px;
-  background-color: #fff;
-  font-size: 8px;
-  text-align: center;
 }
 
 .header-wrapper :global(.ant-layout-header) {
-  background-color: #d8dee9;
+  background-color: #F6f6f6;
 }
 
 .show-others {
