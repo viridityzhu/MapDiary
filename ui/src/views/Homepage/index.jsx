@@ -197,7 +197,7 @@ class Homepage extends Component {
             addedMarker={this.state.addedMarker} setEditId={this.setEditId} setEditFalse={this.setEditFalse}
             currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav}
             setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent}
-            LMarker={this.state.LMarker} setLMarker={this.setLMarker} showNavOnly={this.showNavOnly} showOthers={this.showOthers}
+            LMarker={this.state.LMarker} setLMarker={this.setLMarker} showNavOnly={this.showNavOnly} showOthers={this.state.showOthers}
           />
 
         </div>
