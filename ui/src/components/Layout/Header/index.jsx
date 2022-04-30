@@ -38,7 +38,7 @@ export default class HeaderMod extends Component {
             </div>
           </div>
           <div className={styles["show-others"]}>
-            <Switch onChange={this.toggleShowOthers} />
+            <Switch onChange={this.toggleShowOthers} defaultChecked/>
             &nbsp;Show Others' Pins
           </div>
         </Header>
