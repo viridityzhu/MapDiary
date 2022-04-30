@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes, Navigate } from "react-router-dom";
-import publicRoutes from "../routes/publicRoutes";
 import privateRoutes from "../routes/priviteRoutes";
 import AuthRoute from '../routes/authRoute'
 import UserContext from './UserContext.js';
@@ -32,14 +31,14 @@ export default class Page extends React.Component {
     const { user } = this.state;
     if (user == null) {
       const data = await Page.fetchData(); // data = {user: [signedIn, user_id, user_name]}
-      console.log("page did mount.");
-      console.log(data);
+      // console.log("page did mount.");
+      // console.log(data);
       this.setState({ user: data.user }); // user = {signedIn:False/True, user_id:xxx, user_name:xxx}
     }
   }
 
   onUserChange(user) {
-    console.log("page onuserchange called.");
+    // console.log("page onuserchange called.");
     this.setState({ user });
   }
 

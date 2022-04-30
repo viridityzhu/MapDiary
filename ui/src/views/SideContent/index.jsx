@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button } from "antd";
 import styles from "./index.module.less";
 import './index.css'
-
+import moment from "moment";
 import classNames from "classnames";
 
 
@@ -22,7 +22,7 @@ export default class SideContent extends Component {
     const expandConfig = this.state.expand?"expand-open":"expand-fold"
     const postConfig = this.state.expand?"post-open":"post-fold"
     const classnames = classNames(styles["sider-wrapper"],sideWrapperConfig);
-    const date = this.props.marker && this.props.marker.created_time;
+    const date = this.props.marker && moment(this.props.marker.created_time).format('MMMM Do YYYY, h:mm a');
     const content = this.props.marker && this.props.marker.content;
     return (
       <div className={classnames}>

@@ -7,7 +7,7 @@ import './mapbox.css'
 import styles from "./index.module.css";
 // Solve the issue of broken marker image
 import "./markerFix";
-import graphQLFetch from "../../browser/graphQLFetch";
+// import graphQLFetch from "../../browser/graphQLFetch";
 
 const greenIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -68,7 +68,7 @@ export default class Mapbox extends Component {
               click: (e) => {
                 const id = e.target.options.data;
                 const marker = this.props.markers.find(marker => marker.id === id);
-                console.log('marker clicked', marker);
+                // console.log('marker clicked', marker);
                 this.props.showMarkerContent(marker);
                 this.props.setEditId(id)
               },
@@ -79,7 +79,7 @@ export default class Mapbox extends Component {
         click: (e) => {
           const id = e.target.options.data;
           const marker = this.props.markers.find(marker => marker.id === id);
-          console.log('marker clicked', marker);
+          // console.log('marker clicked', marker);
           this.props.showMarkerContent(marker);
         },
         }}>
@@ -94,7 +94,7 @@ export default class Mapbox extends Component {
     var items = markers.map((marker) => { return { id: marker.id, position: marker.position,username: marker.username } });
     if(!this.props.showOthers) {
       items = items.filter(e => e.username === this.props.username);
-      console.log("do not show others.")
+      // console.log("do not show others.")
     }
     console.log('items', items)
     return items.map((item,idx) => {

@@ -54,7 +54,7 @@ class Homepage extends Component {
     const data =  await graphQLFetch(query, { username:this.props.params.user }, null);
     if (data) {
       this.setState({ markers: data.getMarkerByUser });
-      console.log('this.state.markers in Homepage: ', this.state.markers);
+      // console.log('this.state.markers in Homepage: ', this.state.markers);
     }
   }
   showNavOnly = (flag) => {
@@ -71,7 +71,7 @@ class Homepage extends Component {
     this.setState({text:text});
   }
   onEdit (content){
-    console.log("onEdit, content:", content);
+    // console.log("onEdit, content:", content);
     this.setState({showMarkerContent:false, editContent:content, isEdit:true, showSideNav:true}); 
   }
   setEditFalse(){
@@ -90,7 +90,7 @@ class Homepage extends Component {
     }`;
     const data = await graphQLFetch(query, { id }, null); 
     if (data) {
-      console.log("Deleted pin", data);
+      // console.log("Deleted pin", data);
       message.success('Deleted pin!');
       // window.location.reload();
       this.setState({showMarkerContent:false, delMarkerId:id, showSideNav:false, currentMarker:'', isEdit:false, editContent:''});
@@ -117,7 +117,7 @@ class Homepage extends Component {
           }`;
           const data = await graphQLFetch(query, { changes }, null);
           if (data) {
-            console.log("Updated pin", data.markerUpdate);
+            // console.log("Updated pin", data.markerUpdate);
             message.success('Updated pin!');
             // window.location.reload();
             this.setState({showMarkerContent:true, marker:data.markerUpdate, showSideNav:false, currentMarker:'', isEdit:false, editContent:''});
@@ -142,7 +142,7 @@ class Homepage extends Component {
             position:[this.state.currentMarker.lat, this.state.currentMarker.lng],
             is_public:true
           }
-          console.log(marker);
+          // console.log(marker);
           
           const query = `mutation markerAdd( $marker: Newmarker!) {
             markerAdd(
@@ -152,7 +152,7 @@ class Homepage extends Component {
           }`;
           const data = await graphQLFetch(query, { marker }, null);
           if (data) {
-            console.log("submitted pin", data.markerAdd);
+            // console.log("submitted pin", data.markerAdd);
             message.success('Submit new pin!');
             // window.location.reload();
             this.setState({ showMarkerContent: true, marker: data.markerAdd, showSideNav: false, currentMarker: '', addedMarker: data.markerAdd, });
@@ -167,7 +167,7 @@ class Homepage extends Component {
     this.setState({text:''});
   }
   clearEditContent(){
-    console.log('clear edit cnt...');
+    // console.log('clear edit cnt...');
     this.setState({editContent:''}); 
   }
 
