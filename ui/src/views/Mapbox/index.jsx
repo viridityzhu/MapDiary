@@ -96,7 +96,7 @@ export default class Mapbox extends Component {
             </Popup>
           </Marker> */}
           {markers}
-          <LocationMarker showSideNav={this.props.showSideNav} setEditFalse={this.props.setEditFalse}
+          <LocationMarker showSideNav={this.props.showSideNav} showNavOnly={this.props.showNavOnly} setEditFalse={this.props.setEditFalse}
             LMarker={this.props.LMarker} setLMarker={this.props.setLMarker}
             setCurrentMarker={this.props.setCurrentMarker} />
         </MapContainer>

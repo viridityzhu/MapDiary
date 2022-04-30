@@ -53,7 +53,7 @@ export default function LocationMarker(props) {
         return newState;
       })
     }else {
-      props.showSideNav(false);
+      props.showNavOnly(false);
       setLMarker(false)
       setState((prevState)=>{
         const newState = prevState;

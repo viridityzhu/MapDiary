@@ -55,6 +55,10 @@ class Homepage extends Component {
       console.log('this.state.markers in Homepage: ', this.state.markers);
     }
   }
+  showNavOnly = (flag) => {
+    this.setState({ showSideNav: flag })
+  }
+  
   showMarkerContent(marker) {
     this.setState({showMarkerContent:true, marker:marker, showSideNav:false});
   }
@@ -161,6 +165,7 @@ class Homepage extends Component {
     console.log('clear edit cnt...');
     this.setState({editContent:''}); 
   }
+
   showSideNav(yesorno) {
     this.setState({ showSideNav: yesorno, showMarkerContent:!yesorno });
   }
@@ -187,7 +192,7 @@ class Homepage extends Component {
             addedMarker={this.state.addedMarker} setEditId={this.setEditId} setEditFalse={this.setEditFalse}
             currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav}
             setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent}
-            LMarker={this.state.LMarker} setLMarker={this.setLMarker}
+            LMarker={this.state.LMarker} setLMarker={this.setLMarker} showNavOnly={this.showNavOnly}
           />
 
         </div>
