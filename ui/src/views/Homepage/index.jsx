@@ -14,6 +14,7 @@ class Homepage extends Component {
     super(props);
     this.state = {
       showSideNav: false,
+      showOthers: false,
       showMarkerContent: false,
       currentMarker:'',
       text:'',
@@ -57,6 +58,9 @@ class Homepage extends Component {
   }
   showNavOnly = (flag) => {
     this.setState({ showSideNav: flag })
+  }
+  setShowOthers = (flag) => {
+    this.setState({showOthers: flag})
   }
 
   showMarkerContent(marker) {
@@ -186,13 +190,13 @@ class Homepage extends Component {
           <Header username={this.props.params.user} />
         <div className={styles.content}>
           <div>{this.state.showSideNav ? <SideNav editContent={this.state.editContent} clearEditContent={this.clearEditContent} isEdit={this.state.isEdit} setEditFalse={this.setEditFalse} changeText={this.changeText} onClear={this.onClear} onSubmit={this.onSubmit}/> : <div></div>}</div>
-          <div>{this.state.showMarkerContent ? <SideContent marker={this.state.marker} onEdit={this.onEdit} onDelete={this.onDelete}/> : <div></div>}</div>
+          <div>{this.state.showMarkerContent ? <SideContent marker={this.state.marker} username={this.props.params.user} onEdit={this.onEdit} onDelete={this.onDelete}/> : <div></div>}</div>
           
           <Mapbox text={this.state.text} delMarkerId={this.state.delMarkerId} markers={this.state.markers}
             addedMarker={this.state.addedMarker} setEditId={this.setEditId} setEditFalse={this.setEditFalse}
             currentMarker={this.state.currentMarker} username={this.props.params.user} showSideNav={this.showSideNav}
             setCurrentMarker={this.setCurrentMarker} showMarkerContent={this.showMarkerContent}
-            LMarker={this.state.LMarker} setLMarker={this.setLMarker} showNavOnly={this.showNavOnly}
+            LMarker={this.state.LMarker} setLMarker={this.setLMarker} showNavOnly={this.showNavOnly} showOthers={this.showOthers}
           />
 
         </div>

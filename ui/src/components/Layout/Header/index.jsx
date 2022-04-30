@@ -17,6 +17,9 @@ export default class HeaderMod extends Component {
   hideSettings = () => {
     this.setState({showSettings:false})
   }
+  toggleShowOthers = (e) => {
+    this.props.setShowOthers(e)
+  }
   render() {
     return (
       <div className={styles["header-wrapper"]}>
@@ -35,7 +38,7 @@ export default class HeaderMod extends Component {
             </div>
           </div>
           <div className={styles["show-others"]}>
-            <Switch />
+            <Switch onChange={this.toggleShowOthers} />
             &nbsp;Show Others' Pins
           </div>
         </Header>
