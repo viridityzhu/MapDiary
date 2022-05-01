@@ -33,7 +33,7 @@ export default class Page extends React.Component {
       const data = await Page.fetchData(); // data = {user: [signedIn, user_id, user_name]}
       // console.log("page did mount.");
       // console.log(data);
-      this.setState({ user: data.user }); // user = {signedIn:False/True, user_id:xxx, user_name:xxx}
+      this.setState({ user: data.user_name }); // user = {signedIn:False/True, user_id:xxx, user_name:xxx}
     }
   }
 
